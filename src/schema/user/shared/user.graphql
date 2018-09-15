@@ -1,0 +1,21 @@
+type User {
+  id: ID!
+  collection: String
+  username: String
+  profileMedia: Circle
+  email: String
+  canCreate: Boolean
+  dateCreated: BigInt
+  dateUpdated: BigInt
+  level: Circle
+  balance: Circle
+  rating: Circle
+  uiEnabled: Boolean
+  ui: Circle
+  homePublic: Circle
+  homePrivate: Circle
+  following: Circle
+  inbox: Circle
+  search: Circle
+  # history: Circle
+}

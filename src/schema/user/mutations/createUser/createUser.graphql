@@ -1,0 +1,8 @@
+type Mutation {
+  createUser(id: ID!, email: String!): CreateUserResponse
+}
+
+type CreateUserResponse {
+  status: String
+  createdUser: User
+}

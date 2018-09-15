@@ -6,4 +6,5 @@ temp/
 *.log
 dump.rdb
 .env
-dist
+build
+/service-account.json

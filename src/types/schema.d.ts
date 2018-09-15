@@ -22,56 +22,141 @@ column: number;
 
 interface IQuery {
 __typename: "Query";
-dummy2: string | null;
-bye2: string | null;
-dummy: string | null;
-me: IUser | null;
-bye: string | null;
-hello: string;
+getCircleById: ICircle | null;
+getCirclesByFilters: ICircle | null;
+getCirclesByIds: Array<ICircle> | null;
+getUserPublicById: IUserPublic | null;
+viewer: IUser | null;
 }
 
-interface IHelloOnQueryArguments {
-name?: string | null;
+interface IGetCircleByIdOnQueryArguments {
+id: string;
+}
+
+interface IGetCirclesByFiltersOnQueryArguments {
+filters?: any | null;
+orderBy: string;
+cursor?: any | null;
+numberOfResults?: number | null;
+}
+
+interface IGetCirclesByIdsOnQueryArguments {
+ids: Array<string>;
+}
+
+interface IGetUserPublicByIdOnQueryArguments {
+id: string;
+}
+
+interface ICircle {
+__typename: "Circle";
+id: string | null;
+collection: string | null;
+pii: boolean | null;
+
+/**
+ * parent: Circle
+ */
+slug: string | null;
+public: boolean | null;
+passwordRequired: boolean | null;
+type: string | null;
+settings: any | null;
+
+/**
+ * styles: Circle
+* rating: Circle
+ */
+tags: Array<string> | null;
+title: string | null;
+subtitle: string | null;
+description: string | null;
+
+/**
+ * media: Circle
+ */
+icon: string | null;
+
+/**
+ * creator: UserPublic
+* viewers: [UserPublic]
+* editors: [UserPublic]
+ */
+dateCreated: any | null;
+dateUpdated: any | null;
+string: string | null;
+object: any | null;
+number: number | null;
+bigNumber: any | null;
+boolean: boolean | null;
+date: any | null;
+geoPoint: any | null;
+lines: Array<ICircle> | null;
+}
+
+interface IUserPublic {
+__typename: "UserPublic";
+id: string;
+collection: string | null;
+username: string | null;
+profileMedia: ICircle | null;
+dateCreated: any | null;
+dateUpdated: any | null;
+level: ICircle | null;
+rating: ICircle | null;
+ui: ICircle | null;
+homePublic: ICircle | null;
+following: ICircle | null;
+history: ICircle | null;
 }
 
 interface IUser {
 __typename: "User";
 id: string;
-email: string;
+collection: string | null;
+username: string | null;
+profileMedia: ICircle | null;
+email: string | null;
+canCreate: boolean | null;
+dateCreated: any | null;
+dateUpdated: any | null;
+level: ICircle | null;
+balance: ICircle | null;
+rating: ICircle | null;
+uiEnabled: boolean | null;
+ui: ICircle | null;
+homePublic: ICircle | null;
+homePrivate: ICircle | null;
+following: ICircle | null;
+inbox: ICircle | null;
+search: ICircle | null;
 }
 
 interface IMutation {
 __typename: "Mutation";
-sendForgotPasswordEmail: boolean | null;
-forgotPasswordChange: Array<IError>;
-login: Array<IError>;
-logout: boolean | null;
-register: Array<IError>;
+createCircleWithId: ICreateCircleResponse | null;
+createUser: ICreateUserResponse | null;
 }
 
-interface ISendForgotPasswordEmailOnMutationArguments {
+interface ICreateCircleWithIdOnMutationArguments {
+id: string;
+}
+
+interface ICreateUserOnMutationArguments {
+id: string;
 email: string;
 }
 
-interface IForgotPasswordChangeOnMutationArguments {
-newPassword: string;
-key: string;
+interface ICreateCircleResponse {
+__typename: "CreateCircleResponse";
+status: string | null;
+createdCircle: ICircle | null;
 }
 
-interface ILoginOnMutationArguments {
-email: string;
-password: string;
-}
-
-interface IRegisterOnMutationArguments {
-email: string;
-password: string;
-}
-
-interface IError {
-__typename: "Error";
-path: string;
-message: string;
+interface ICreateUserResponse {
+__typename: "CreateUserResponse";
+status: string | null;
+createdUser: IUser | null;
 }
 }
 

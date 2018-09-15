@@ -1,0 +1,14 @@
+type UserPublic {
+  id: ID!
+  collection: String
+  username: String
+  profileMedia: Circle
+  dateCreated: BigInt
+  dateUpdated: BigInt
+  level: Circle
+  rating: Circle
+  ui: Circle
+  homePublic: Circle
+  following: Circle
+  history: Circle
+}

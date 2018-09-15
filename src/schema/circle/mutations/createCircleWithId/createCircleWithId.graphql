@@ -1,0 +1,8 @@
+type Mutation {
+  createCircleWithId(id: ID!): CreateCircleResponse
+}
+
+type CreateCircleResponse {
+  status: String
+  createdCircle: Circle
+}

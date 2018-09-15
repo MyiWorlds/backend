@@ -1,0 +1,8 @@
+type Query {
+  getCirclesByFilters(
+    filters: JSON
+    orderBy: String!
+    cursor: JSON
+    numberOfResults: Int
+  ): Circle
+}
