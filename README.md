@@ -58,3 +58,14 @@ npm run watch
 You can now navigate to `http://localhost:4000` to use GraphQL Playground to query your GraphQL api.
 Or move onto setting up the frontend to this project where you can start building a real application here:
 https://github.com/MyiWorlds/frontend
+
+This project was started off the combination of two YouTubers work. If you are not subscribed and have not watched their tutorials, please do. They are absolutely fantastic!
+
+- Ben Awad
+  Youtube Playlist: https://www.youtube.com/playlist?list=PLN3n1USn4xlltIGRInnlHtsOdvHIUQFHL
+  Project Code: https://github.com/benawad/graphql-ts-server-boilerplate
+
+- AngularFirebase
+  Video with Firestore/Google Cloud AppEngine/Typescript/Apollo-server:
+  https://youtu.be/8D9XnnjFGMs
+  Project code: https://github.com/arjunyel/firestore-apollo-graphql
