@@ -15,7 +15,7 @@ interface Response {
 export default async function deleteDocument(
   collection: string,
   id: string,
-  contextViewerId: string,
+  context: Context,
 ) {
   console.time('deleteDocument time to complete');
 
@@ -50,8 +50,8 @@ export default async function deleteDocument(
     }
 
     if (
-      isCreator(documentExists.creator, contextViewerId) ||
-      isRequestingUser(documentExists.id, contextViewerId)
+      isCreator(documentExists.creator, context.profileId) ||
+      isRequestingUser(documentExists.id, context.userId)
     ) {
       let keepDeleting = true;
       let cursor = null;

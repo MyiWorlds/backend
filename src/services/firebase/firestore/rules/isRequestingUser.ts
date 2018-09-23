@@ -1,3 +1,3 @@
-export const isRequestingUser = (docId: string, viewer: string) => {
-  return docId === viewer;
+export const isRequestingUser = (docId: string, user: string) => {
+  return docId === user;
 };

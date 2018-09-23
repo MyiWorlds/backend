@@ -16,9 +16,9 @@ type Circle {
   description: String
   # media: Circle
   icon: String
-  # creator: UserPublic
-  # viewers: [UserPublic]
-  # editors: [UserPublic]
+  # creator: Profile
+  # users: [Profile]
+  # editors: [Profile]
   dateCreated: BigInt
   dateUpdated: BigInt
   string: String

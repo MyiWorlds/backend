@@ -1,24 +1,24 @@
 import * as uuid from 'uuid/v1';
-import firestore from '../..';
+import firestore from '../../firestore/index';
 import stackdriver from './../../../stackdriver';
 
 interface Response {
   status: string;
   message: string;
   createdDocumentId: string | null;
-  contextViewerId: string;
+  contextProfileId: string;
 }
 
 export default async function createDocument(
   documentToCreate: any,
-  contextViewerId: string,
+  context: Context,
 ) {
   console.time('Time to createDocument');
-  let response: Response = {
+  const response: Response = {
     status: '',
     message: '',
     createdDocumentId: null,
-    contextViewerId,
+    contextProfileId: context.profileId,
   };
 
   try {
@@ -27,13 +27,10 @@ export default async function createDocument(
     }
 
     if (!documentToCreate.collection) {
-      response = {
-        status: 'ERROR',
-        message:
-          'Sorry, I was not given a collection name. I have no idea where I would put this. Please add one.',
-        createdDocumentId: null,
-        contextViewerId,
-      };
+      response.status = 'ERROR';
+      response.message =
+        'Sorry, I was not given a collection name. I have no idea where I would put this. Please add one.';
+
       return response;
     }
 
@@ -42,20 +39,16 @@ export default async function createDocument(
       .doc(documentToCreate.id)
       .set(documentToCreate);
 
-    response = {
-      status: 'SUCCESS',
-      message: 'Entity was created',
-      createdDocumentId: documentToCreate.id,
-      contextViewerId,
-    };
+    response.status = 'SUCCESS';
+    response.message = 'Entity was created';
+    response.createdDocumentId = documentToCreate.id;
   } catch (error) {
     stackdriver.report(error);
-    response = {
-      status: 'ERROR',
-      message: 'There was an error creating the Entity',
-      createdDocumentId: null,
-      contextViewerId,
-    };
+    response.status = 'ERROR';
+    response.message = `There was an error creating the Entity. ${
+      error.message
+    }`;
+    response.createdDocumentId = null;
   }
   console.timeEnd('Time to createDocument');
   return response;

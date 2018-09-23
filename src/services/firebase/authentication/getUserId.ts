@@ -1,8 +1,8 @@
 import firebase from '..';
 
-const getViewerId = async (token: string) => {
+const getUserId = async (token: string) => {
   if (token && token !== 'null') {
-    const viewerId = await firebase
+    const userId = await firebase
       .auth()
       .verifyIdToken(token)
       .then((decodedToken: any) => {
@@ -14,10 +14,10 @@ const getViewerId = async (token: string) => {
 
         return null;
       });
-    return viewerId;
+    return userId;
   } else {
     return null;
   }
 };
 
-export default getViewerId;
+export default getUserId;

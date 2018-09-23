@@ -1,3 +1,3 @@
-export const isCreator = (creator: string, viewer: string) => {
-  return creator === viewer;
+export const isCreator = (creator: string, user: string) => {
+  return creator === user;
 };

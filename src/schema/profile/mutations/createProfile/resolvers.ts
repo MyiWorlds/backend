@@ -4,29 +4,34 @@ import { ResolverMap } from '../../../../types/graphql-utils';
 
 export const resolvers: ResolverMap = {
   Mutation: {
-    createCircleWithId: async (
+    createProfile: async (
       _: null,
       args: {
         id: string;
+        email: string;
       },
+      context: Context,
     ) => {
       try {
-        const circle = {
+        const profile = {
           id: args.id,
+          creator: context.profileId,
           dateCreated: Date.now(),
+          dateUpdated: Date.now(),
+          email: args.email,
         };
 
         await firestore
-          .collection('circles')
-          .doc(circle.id)
-          .set(circle);
+          .collection('profiles')
+          .doc(profile.id)
+          .set(profile);
 
-        const createCircleResponse = {
+        const createProfileResponse = {
           status: 'SUCCESS',
-          createdCircle: circle.id,
+          createdProfile: profile.id,
         };
 
-        return createCircleResponse;
+        return createProfileResponse;
       } catch (error) {
         stackdriver.report(error);
         return;

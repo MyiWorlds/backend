@@ -1,13 +1,12 @@
 import firestore from './../index';
 import stackdriver from './../../../stackdriver';
 import { defaultCircleSwitch } from '../functions/defaultCircleSwitch';
-import { viewerCanView } from './../rules';
+import { userCanView } from './../rules';
 
-/* eslint-disable camelcase */
 export default async function getDocumentsByIds(
   collection: string,
   ids: string[],
-  contextViewerId: string,
+  context: Context,
 ) {
   console.time('getDocumentsByIds TTC: ');
   let response: any[] = [];
@@ -51,7 +50,7 @@ export default async function getDocumentsByIds(
       sortedEntities.forEach((document: any) => {
         if (document.type === 'DOES_NOT_EXIST') {
           response.push(defaultCircleSwitch('DOES_NOT_EXIST', document));
-        } else if (viewerCanView(document, contextViewerId)) {
+        } else if (userCanView(document, context)) {
           response.push(document);
         } else {
           response.push(defaultCircleSwitch('PERMISSION_DENIED', document));

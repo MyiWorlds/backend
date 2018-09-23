@@ -88,7 +88,7 @@ export default async function globalSearch(
         userUid,
         circle,
         {
-          property: 'viewers',
+          property: 'users',
           condition: '=',
           value: userUid,
         },

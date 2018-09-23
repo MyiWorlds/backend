@@ -1,3 +1,0 @@
-type Query {
-  getUserPublicById(id: String!): UserPublic
-}

@@ -1,7 +1,7 @@
 import firestore from './../index';
 import stackdriver from '../../../stackdriver';
 import { defaultCircleSwitch } from './../functions/defaultCircleSwitch';
-import { viewerCanView } from '../rules';
+import { userCanView } from '../rules';
 
 //  Need to update how I handle the property that it is sorted on (searched on) to be dynamic
 // Make it so I can use this same function to navigate forwards as well based on prop
@@ -29,7 +29,7 @@ export default async function getDocumentsByFilters(
   orderBy: string,
   numberOfResults: number,
   pageCursor: any | null,
-  contextViewerId: string,
+  context: Context,
 ) {
   console.time('getDocumentsByFilters time to complete');
 
@@ -74,7 +74,7 @@ export default async function getDocumentsByFilters(
 
       const data = results.docs.map((result: any) => {
         result = result.data();
-        if (viewerCanView(result, contextViewerId)) {
+        if (userCanView(result, context)) {
           response.lines.push(result);
         } else {
           response.lines.push(defaultCircleSwitch('PERMISSION_DENIED', result));

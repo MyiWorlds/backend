@@ -18,7 +18,7 @@ export const resolvers: ResolverMap = {
         orderBy: string;
         cursor: any | null;
       },
-      context,
+      context: Context,
     ) => {
       try {
         return await getDocumentsByFilters(
@@ -27,7 +27,7 @@ export const resolvers: ResolverMap = {
           args.orderBy,
           args.numberOfResults,
           args.cursor,
-          context.viewerId,
+          context,
         );
       } catch (error) {
         stackdriver.report(error);

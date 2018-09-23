@@ -1,16 +1,50 @@
-import getViewerId from './services/firebase/authentication/getViewerId';
+import firestore from './services/firebase/firestore/index';
+import getUserId from './services/firebase/authentication/getUserId';
 import stackdriver from './services/stackdriver';
 import { ApolloServer } from 'apollo-server';
 import { genSchema } from './utils/genSchema';
 import 'dotenv/config';
 
 export const startServer = async () => {
+  const playground: any = {
+    settings: {
+      'editor.theme': 'light',
+      'editor.cursorShape': 'block',
+    },
+  };
+
   const server = new ApolloServer({
     schema: genSchema() as any,
+    playground,
     introspection: true,
-    context: async ({ req }: { req: any }) => ({
-      viewerId: await getViewerId(req.headers.token),
-    }),
+    context: async ({ req }: { req: any }) => {
+      const headers = {
+        userId: await getUserId(req.headers.token),
+        queriedUserId: req.headers['user-id'],
+        profileId: req.headers['profile-id'],
+        validated: false,
+      };
+
+      if (headers.userId && headers.queriedUserId === 'null') {
+        const user = await firestore
+          .doc(`users/${headers.userId}`)
+          .get()
+          .then((result: any) => result.data());
+
+        headers.queriedUserId = user.id;
+        headers.profileId = user.profiles[0].id;
+      }
+
+      if (headers.userId === headers.queriedUserId) {
+        headers.validated = true;
+      } else {
+        headers.userId = null;
+        headers.queriedUserId = null;
+        headers.profileId = null;
+      }
+
+      return headers;
+    },
     formatError: (error: any) => {
       return stackdriver.report(new Error(error));
     },

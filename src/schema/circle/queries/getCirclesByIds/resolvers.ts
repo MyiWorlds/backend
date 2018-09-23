@@ -4,9 +4,13 @@ import { ResolverMap } from '../../../../types/graphql-utils';
 
 export const resolvers: ResolverMap = {
   Query: {
-    getCirclesByIds: async (_: null, args: { ids: string[] }, context) => {
+    getCirclesByIds: async (
+      _: null,
+      args: { ids: string[] },
+      context: Context,
+    ) => {
       try {
-        return await getDocumentsByIds('circles', args.ids, context.viewerId);
+        return await getDocumentsByIds('circles', args.ids, context);
       } catch (error) {
         stackdriver.report(error);
         return null;

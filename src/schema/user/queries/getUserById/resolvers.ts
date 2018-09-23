@@ -4,9 +4,9 @@ import { ResolverMap } from '../../../../types/graphql-utils';
 
 export const resolvers: ResolverMap = {
   Query: {
-    viewer: async (_: null, __: null, context: { viewerId: any }) => {
+    user: async (_: null, __: null, context: Context) => {
       try {
-        const userDoc = await firestore.doc(`users/${context.viewerId}`).get();
+        const userDoc = await firestore.doc(`users/${context.userId}`).get();
         // const user = userDoc.data() as User | undefined;
         const user = userDoc.data();
         return user;

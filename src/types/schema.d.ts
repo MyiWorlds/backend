@@ -25,8 +25,8 @@ __typename: "Query";
 getCircleById: ICircle | null;
 getCirclesByFilters: ICircle | null;
 getCirclesByIds: Array<ICircle> | null;
-getUserPublicById: IUserPublic | null;
-viewer: IUser | null;
+getProfileById: IProfile | null;
+user: IUser | null;
 }
 
 interface IGetCircleByIdOnQueryArguments {
@@ -44,7 +44,7 @@ interface IGetCirclesByIdsOnQueryArguments {
 ids: Array<string>;
 }
 
-interface IGetUserPublicByIdOnQueryArguments {
+interface IGetProfileByIdOnQueryArguments {
 id: string;
 }
 
@@ -78,9 +78,9 @@ description: string | null;
 icon: string | null;
 
 /**
- * creator: UserPublic
-* viewers: [UserPublic]
-* editors: [UserPublic]
+ * creator: Profile
+* users: [Profile]
+* editors: [Profile]
  */
 dateCreated: any | null;
 dateUpdated: any | null;
@@ -94,18 +94,22 @@ geoPoint: any | null;
 lines: Array<ICircle> | null;
 }
 
-interface IUserPublic {
-__typename: "UserPublic";
+interface IProfile {
+__typename: "Profile";
 id: string;
 collection: string | null;
 username: string | null;
+canCreate: boolean | null;
 profileMedia: ICircle | null;
 dateCreated: any | null;
 dateUpdated: any | null;
 level: ICircle | null;
 rating: ICircle | null;
+uiEnabled: boolean | null;
 ui: ICircle | null;
+style: ICircle | null;
 homePublic: ICircle | null;
+homePrivate: ICircle | null;
 following: ICircle | null;
 history: ICircle | null;
 }
@@ -114,32 +118,66 @@ interface IUser {
 __typename: "User";
 id: string;
 collection: string | null;
-username: string | null;
-profileMedia: ICircle | null;
 email: string | null;
+history: ICircle | null;
 canCreate: boolean | null;
+profileMedia: ICircle | null;
 dateCreated: any | null;
 dateUpdated: any | null;
-level: ICircle | null;
-balance: ICircle | null;
-rating: ICircle | null;
-uiEnabled: boolean | null;
-ui: ICircle | null;
-homePublic: ICircle | null;
-homePrivate: ICircle | null;
-following: ICircle | null;
+levelTotal: ICircle | null;
+balanceTotal: ICircle | null;
+ratingTotal: ICircle | null;
+uis: ICircle | null;
+styles: ICircle | null;
 inbox: ICircle | null;
 search: ICircle | null;
+profiles: Array<IProfile> | null;
 }
 
 interface IMutation {
 __typename: "Mutation";
-createCircleWithId: ICreateCircleResponse | null;
+createCircle: ICreateCircleResponse | null;
+createProfile: ICreateProfileResponse | null;
 createUser: ICreateUserResponse | null;
 }
 
-interface ICreateCircleWithIdOnMutationArguments {
+interface ICreateCircleOnMutationArguments {
+id?: string | null;
+collection: string;
+pii?: boolean | null;
+parent?: string | null;
+slug?: string | null;
+public?: boolean | null;
+passwordRequired?: boolean | null;
+type: string;
+settings?: any | null;
+styles?: string | null;
+rating?: string | null;
+tags?: Array<string> | null;
+title?: string | null;
+subtitle?: string | null;
+description?: string | null;
+media?: string | null;
+icon?: string | null;
+creator: string;
+users?: Array<string> | null;
+editors?: Array<string> | null;
+dateCreated?: any | null;
+dateUpdated?: any | null;
+string?: string | null;
+object?: any | null;
+number?: number | null;
+bigNumber?: any | null;
+boolean?: boolean | null;
+date?: any | null;
+geoPoint?: any | null;
+lines?: Array<string> | null;
+}
+
+interface ICreateProfileOnMutationArguments {
 id: string;
+username: string;
+profileMedia?: string | null;
 }
 
 interface ICreateUserOnMutationArguments {
@@ -150,7 +188,15 @@ email: string;
 interface ICreateCircleResponse {
 __typename: "CreateCircleResponse";
 status: string | null;
+message: string | null;
 createdCircle: ICircle | null;
+creator: IProfile | null;
+}
+
+interface ICreateProfileResponse {
+__typename: "CreateProfileResponse";
+status: string | null;
+createdProfile: IProfile | null;
 }
 
 interface ICreateUserResponse {

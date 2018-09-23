@@ -1,11 +1,11 @@
 import firestore from './../index';
 import stackdriver from './../../../stackdriver';
-import { viewerCanView } from './../rules';
+import { userCanView } from './../rules';
 
 export default async function getDocumentById(
   collection: string,
   id: string,
-  contextViewerId: string,
+  context: Context,
 ) {
   console.time('getDocumentById time to complete: ');
 
@@ -20,7 +20,7 @@ export default async function getDocumentById(
 
     if (!document) {
       response = null;
-    } else if (viewerCanView(document, contextViewerId)) {
+    } else if (userCanView(document, context)) {
       response = document;
     } else {
       response = {
