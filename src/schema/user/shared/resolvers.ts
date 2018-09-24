@@ -1,7 +1,10 @@
 import firestore from '../../../services/firebase/firestore';
 import stackdriver from '../../../services/stackdriver';
-import { getDocumentsByIds } from '../../../services/firebase/firestore/queries';
 import { ResolverMap } from '../../../types/graphql-utils';
+import {
+  getDocumentsByIds,
+  getDocumentById,
+} from '../../../services/firebase/firestore/queries';
 
 export const resolvers: ResolverMap = {
   Query: {
@@ -17,6 +20,30 @@ export const resolvers: ResolverMap = {
     },
   },
   User: {
+    profileMedia: async (user: any, _: null, context: Context) =>
+      getDocumentById('circles', user.profileMedia, context),
+
+    levelTotal: async (user: any, _: null, context: Context) =>
+      getDocumentById('circles', user.levelTotal, context),
+
+    balanceTotal: async (user: any, _: null, context: Context) =>
+      getDocumentById('circles', user.balanceTotal, context),
+
+    ratingTotal: async (user: any, _: null, context: Context) =>
+      getDocumentById('circles', user.ratingTotal, context),
+
+    uis: async (user: any, _: null, context: Context) =>
+      getDocumentById('circles', user.uis, context),
+
+    styles: async (user: any, _: null, context: Context) =>
+      getDocumentById('circles', user.styles, context),
+
+    inbox: async (user: any, _: null, context: Context) =>
+      getDocumentById('circles', user.inbox, context),
+
+    search: async (user: any, _: null, context: Context) =>
+      getDocumentById('circles', user.search, context),
+
     profiles: async (user: any, _: null, context: Context) => {
       try {
         return await getDocumentsByIds('profiles', user.profiles, context);

@@ -18,12 +18,13 @@ type Mutation {
     media: String
     icon: String
     creator: String!
-    users: [String]
+    owner: String
+    viewers: [String]
     editors: [String]
     dateCreated: BigInt
     dateUpdated: BigInt
     string: String
-    object: JSON
+    data: JSON
     number: Int
     bigNumber: BigInt
     boolean: Boolean

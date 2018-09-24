@@ -30,7 +30,7 @@ export const resolvers: ResolverMap = {
         dateCreated: any;
         dateUpdated: any;
         string: string;
-        object: any;
+        data: JSON;
         number: number;
         bigNumber: any;
         boolean: boolean;
@@ -40,8 +40,7 @@ export const resolvers: ResolverMap = {
       },
       context: Context,
     ) => {
-      const userId = context;
-      return createDocument(args, userId);
+      return createDocument(args, context);
     },
   },
   CreateCircleResponse: {

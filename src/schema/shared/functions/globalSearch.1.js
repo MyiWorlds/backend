@@ -1,10 +1,11 @@
-import getEntitiesAndRemoveInvalid from "./getEntitiesAndRemoveInvalid";
-import search from "./search";
+import getEntitiesAndRemoveInvalid from './getEntitiesAndRemoveInvalid';
+import search from './search';
 
 const hasFetchedEnough = (circle, requestedNumberOfResults) => {
-  return circle.lines.length <
-    requestedNumberOfResults &&
-    circle.object.cursor.moreResults === 'MORE_RESULTS_AFTER_LIMIT'
+  return (
+    circle.lines.length < requestedNumberOfResults &&
+    circle.data.cursor.moreResults === 'MORE_RESULTS_AFTER_LIMIT'
+  );
 };
 
 const searchEntities = async (
@@ -16,9 +17,11 @@ const searchEntities = async (
   cursor,
   userUid,
   circle,
-  extraFilter
+  extraFilter,
 ) => {
-  const userViewableFilters = extraFilter ? filters.concat(extraFilter) : filters;
+  const userViewableFilters = extraFilter
+    ? filters.concat(extraFilter)
+    : filters;
   circle.lines = circle.lines.concat(
     await search(
       title,
@@ -27,8 +30,8 @@ const searchEntities = async (
       userViewableFilters,
       requestedNumberOfResults,
       cursor,
-      userUid
-    )
+      userUid,
+    ),
   );
 };
 
@@ -41,13 +44,13 @@ export default async function globalSearch(
   filters,
   requestedNumberOfResults,
   cursor,
-  userUid
+  userUid,
 ) {
   let circle = {
     uid: 'search',
     icon: 'search',
     type: 'LINES_QUERY',
-    object: {
+    data: {
       kind,
       filters,
       requestedNumberOfResults,
@@ -116,7 +119,6 @@ export default async function globalSearch(
 
       circle.lines = circle.lines.concat(getMyEditable);
     }
-
   }
 
   if (getAllResults) {
@@ -142,5 +144,4 @@ export default async function globalSearch(
   circle.lines = circle.lines.filter(circle => typeof circle === 'object');
 
   return circle;
-};
-
+}

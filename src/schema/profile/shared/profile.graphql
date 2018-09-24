@@ -10,6 +10,7 @@ type Profile {
   rating: Circle
   uiEnabled: Boolean
   ui: Circle
+  styleEnabled: Boolean
   style: Circle
   homePublic: Circle
   homePrivate: Circle

@@ -2,27 +2,28 @@ type Circle {
   id: ID
   collection: String
   pii: Boolean
-  # parent: Circle
+  parent: Circle
   slug: String
   public: Boolean
   passwordRequired: Boolean
   type: String
   settings: JSON
-  # styles: Circle
-  # rating: Circle
+  styles: Circle
+  rating: Circle
   tags: [String]
   title: String
   subtitle: String
   description: String
-  # media: Circle
+  media: Circle
   icon: String
-  # creator: Profile
-  # users: [Profile]
-  # editors: [Profile]
+  creator: Profile
+  owner: Profile
+  viewers: [Profile]
+  editors: [Profile]
   dateCreated: BigInt
   dateUpdated: BigInt
   string: String
-  object: JSON
+  data: JSON
   number: Int
   bigNumber: BigInt
   boolean: Boolean

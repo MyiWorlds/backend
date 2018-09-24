@@ -53,39 +53,28 @@ __typename: "Circle";
 id: string | null;
 collection: string | null;
 pii: boolean | null;
-
-/**
- * parent: Circle
- */
+parent: ICircle | null;
 slug: string | null;
 public: boolean | null;
 passwordRequired: boolean | null;
 type: string | null;
 settings: any | null;
-
-/**
- * styles: Circle
-* rating: Circle
- */
+styles: ICircle | null;
+rating: ICircle | null;
 tags: Array<string> | null;
 title: string | null;
 subtitle: string | null;
 description: string | null;
-
-/**
- * media: Circle
- */
+media: ICircle | null;
 icon: string | null;
-
-/**
- * creator: Profile
-* users: [Profile]
-* editors: [Profile]
- */
+creator: IProfile | null;
+owner: IProfile | null;
+viewers: Array<IProfile> | null;
+editors: Array<IProfile> | null;
 dateCreated: any | null;
 dateUpdated: any | null;
 string: string | null;
-object: any | null;
+data: any | null;
 number: number | null;
 bigNumber: any | null;
 boolean: boolean | null;
@@ -107,6 +96,7 @@ level: ICircle | null;
 rating: ICircle | null;
 uiEnabled: boolean | null;
 ui: ICircle | null;
+styleEnabled: boolean | null;
 style: ICircle | null;
 homePublic: ICircle | null;
 homePrivate: ICircle | null;
@@ -160,12 +150,13 @@ description?: string | null;
 media?: string | null;
 icon?: string | null;
 creator: string;
-users?: Array<string> | null;
+owner?: string | null;
+viewers?: Array<string> | null;
 editors?: Array<string> | null;
 dateCreated?: any | null;
 dateUpdated?: any | null;
 string?: string | null;
-object?: any | null;
+data?: any | null;
 number?: number | null;
 bigNumber?: any | null;
 boolean?: boolean | null;

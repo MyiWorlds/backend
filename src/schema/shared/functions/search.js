@@ -1,9 +1,10 @@
-import getEntitiesAndRemoveInvalid from "./getEntitiesAndRemoveInvalid";
+import getEntitiesAndRemoveInvalid from './getEntitiesAndRemoveInvalid';
 
 const hasFetchedEnough = (circle, requestedNumberOfResults) => {
-  return circle.lines.length <
-    requestedNumberOfResults &&
-    circle.object.cursor.moreResults === 'MORE_RESULTS_AFTER_LIMIT'
+  return (
+    circle.lines.length < requestedNumberOfResults &&
+    circle.data.cursor.moreResults === 'MORE_RESULTS_AFTER_LIMIT'
+  );
 };
 
 export default async function search(
@@ -13,14 +14,14 @@ export default async function search(
   filters,
   requestedNumberOfResults,
   cursor,
-  userUid
+  userUid,
 ) {
   let circle = {
     uid: title.replace(/\s+/g, '-'),
     title: title || '',
     icon: icon || 'public',
     type: 'QUERY',
-    object: {
+    data: {
       kind,
       filters,
       requestedNumberOfResults,
@@ -39,23 +40,22 @@ export default async function search(
   );
 
   const fetchMore = hasFetchedEnough(circle, requestedNumberOfResults);
-  var numberOfRetries = 0
+  var numberOfRetries = 0;
 
-  while(fetchMore && numberOfRetries < 3) {
-    numberOfRetries++
+  while (fetchMore && numberOfRetries < 3) {
+    numberOfRetries++;
 
-      const amountToRefetch = requestedNumberOfResults - circle.lines.length;
+    const amountToRefetch = requestedNumberOfResults - circle.lines.length;
 
-      circle = await getEntitiesAndRemoveInvalid(
-        circle,
-        kind,
-        filters,
-        requestedNumberOfResults,
-        circle.object.cursor.endCursor,
-        userUid,
-      );
+    circle = await getEntitiesAndRemoveInvalid(
+      circle,
+      kind,
+      filters,
+      requestedNumberOfResults,
+      circle.data.cursor.endCursor,
+      userUid,
+    );
   }
 
   return circle;
-};
-
+}
