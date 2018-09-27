@@ -1,5 +1,5 @@
-import firebase from '../firebase';
 import getEntities from '../queries/getDocumentsByFilters';
+import firestore from './../index';
 
 /* Caution: Be careful when passing a Cloud Datastore cursor
 to a client, such as in a web form. Although the client cannot

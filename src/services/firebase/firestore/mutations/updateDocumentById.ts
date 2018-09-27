@@ -1,5 +1,5 @@
 import cloneToNewDocument from './cloneToNewDocument';
-import firestore from '../..';
+import firestore from './../index';
 import stackdriver from './../../../stackdriver';
 import { isCreator, isEditor, isRequestingUser } from '../rules';
 
@@ -13,7 +13,7 @@ interface Response {
 export default async function updateDocumentById(
   updatedDocument: any,
   context: Context,
-  replace: boolean,
+  merge: boolean,
 ) {
   console.time('updateDocumentById time to complete');
   let response: Response = {
@@ -62,7 +62,7 @@ export default async function updateDocumentById(
           await firestore
             .collection(updatedDocument.collection)
             .doc(updatedDocument.id)
-            .set(updatedDocument, { merge: replace ? false : true });
+            .set(updatedDocument, { merge: merge ? true : false });
 
           response = {
             status: 'SUCCESS',

@@ -87,6 +87,7 @@ interface IProfile {
 __typename: "Profile";
 id: string;
 collection: string | null;
+public: boolean | null;
 username: string | null;
 canCreate: boolean | null;
 profileMedia: ICircle | null;
@@ -95,9 +96,9 @@ dateUpdated: any | null;
 level: ICircle | null;
 rating: ICircle | null;
 uiEnabled: boolean | null;
-ui: ICircle | null;
+selectedUi: ICircle | null;
 styleEnabled: boolean | null;
-style: ICircle | null;
+selectedStyle: ICircle | null;
 homePublic: ICircle | null;
 homePrivate: ICircle | null;
 following: ICircle | null;
@@ -111,7 +112,7 @@ collection: string | null;
 email: string | null;
 history: ICircle | null;
 canCreate: boolean | null;
-profileMedia: ICircle | null;
+defaultMedia: ICircle | null;
 dateCreated: any | null;
 dateUpdated: any | null;
 levelTotal: ICircle | null;
@@ -166,7 +167,6 @@ lines?: Array<string> | null;
 }
 
 interface ICreateProfileOnMutationArguments {
-id: string;
 username: string;
 profileMedia?: string | null;
 }
@@ -187,6 +187,7 @@ creator: IProfile | null;
 interface ICreateProfileResponse {
 __typename: "CreateProfileResponse";
 status: string | null;
+message: string | null;
 createdProfile: IProfile | null;
 }
 

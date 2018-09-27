@@ -1,12 +1,9 @@
 type Mutation {
-  createProfile(
-    id: ID!
-    username: String!
-    profileMedia: String
-  ): CreateProfileResponse
+  createProfile(username: String!): CreateProfileResponse
 }
 
 type CreateProfileResponse {
   status: String
+  message: String
   createdProfile: Profile
 }

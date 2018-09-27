@@ -20,8 +20,8 @@ export const resolvers: ResolverMap = {
     },
   },
   User: {
-    profileMedia: async (user: any, _: null, context: Context) =>
-      getDocumentById('circles', user.profileMedia, context),
+    defaultMedia: async (user: any, _: null, context: Context) =>
+      getDocumentById('circles', user.defaultMedia, context),
 
     levelTotal: async (user: any, _: null, context: Context) =>
       getDocumentById('circles', user.levelTotal, context),

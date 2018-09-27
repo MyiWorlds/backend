@@ -1,4 +1,4 @@
-import firestore from '../..';
+import firestore from './../index';
 import stackdriver from './../../../stackdriver';
 import { isCreator, isRequestingUser } from './../rules';
 // import getDocumentsByFilters from '../queries/getDocumentsByFilters';

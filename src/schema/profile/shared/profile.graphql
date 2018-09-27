@@ -1,6 +1,7 @@
 type Profile {
   id: ID!
   collection: String
+  public: Boolean
   username: String
   canCreate: Boolean
   profileMedia: Circle
@@ -9,9 +10,9 @@ type Profile {
   level: Circle
   rating: Circle
   uiEnabled: Boolean
-  ui: Circle
+  selectedUi: Circle
   styleEnabled: Boolean
-  style: Circle
+  selectedStyle: Circle
   homePublic: Circle
   homePrivate: Circle
   following: Circle

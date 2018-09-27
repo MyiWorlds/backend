@@ -26,6 +26,14 @@ export default async function createDocument(
       documentToCreate.id = uuid();
     }
 
+    if (!documentToCreate.dateCreated) {
+      documentToCreate.dateCreated = Date.now();
+    }
+
+    if (!documentToCreate.dateUpdated) {
+      documentToCreate.dateUpdated = Date.now();
+    }
+
     if (!documentToCreate.collection) {
       response.status = 'ERROR';
       response.message =

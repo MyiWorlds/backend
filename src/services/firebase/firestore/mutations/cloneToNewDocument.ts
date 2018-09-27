@@ -1,5 +1,5 @@
 import * as uuid from 'uuid/v1';
-import firestore from '../..';
+import firestore from './../index';
 
 // This should be in a cloud function
 export default async function cloneToNewDocument(doc: any) {

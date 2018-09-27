@@ -4,7 +4,7 @@ type User {
   email: String
   history: Circle
   canCreate: Boolean
-  profileMedia: Circle
+  defaultMedia: Circle
   dateCreated: BigInt
   dateUpdated: BigInt
   levelTotal: Circle
