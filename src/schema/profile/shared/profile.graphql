@@ -9,10 +9,11 @@ type Profile {
   dateUpdated: BigInt
   level: Circle
   rating: Circle
-  uiEnabled: Boolean
-  selectedUi: Circle
-  styleEnabled: Boolean
-  selectedStyle: Circle
+  isDarkTheme: Boolean
+  isMyTypeStyles: Boolean
+  myTypeStyles: Circle
+  isMyTheme: Boolean
+  myTheme: Circle
   homePublic: Circle
   homePrivate: Circle
   following: Circle

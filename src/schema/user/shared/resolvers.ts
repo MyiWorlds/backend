@@ -20,9 +20,6 @@ export const resolvers: ResolverMap = {
     },
   },
   User: {
-    defaultMedia: async (user: any, _: null, context: Context) =>
-      getDocumentById('circles', user.defaultMedia, context),
-
     levelTotal: async (user: any, _: null, context: Context) =>
       getDocumentById('circles', user.levelTotal, context),
 
@@ -32,17 +29,20 @@ export const resolvers: ResolverMap = {
     ratingTotal: async (user: any, _: null, context: Context) =>
       getDocumentById('circles', user.ratingTotal, context),
 
-    uis: async (user: any, _: null, context: Context) =>
-      getDocumentById('circles', user.uis, context),
+    allMyThemes: async (user: any, _: null, context: Context) =>
+      getDocumentById('circles', user.allMyThemes, context),
 
-    styles: async (user: any, _: null, context: Context) =>
-      getDocumentById('circles', user.styles, context),
+    allMyTypeStyles: async (user: any, _: null, context: Context) =>
+      getDocumentById('circles', user.allMyTypeStyles, context),
 
     inbox: async (user: any, _: null, context: Context) =>
       getDocumentById('circles', user.inbox, context),
 
     search: async (user: any, _: null, context: Context) =>
       getDocumentById('circles', user.search, context),
+
+    selectedProfile: async (user: any, _: null, context: Context) =>
+      getDocumentById('profiles', user.selectedProfile, context),
 
     profiles: async (user: any, _: null, context: Context) => {
       try {

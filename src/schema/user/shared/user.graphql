@@ -4,15 +4,15 @@ type User {
   email: String
   history: Circle
   canCreate: Boolean
-  defaultMedia: Circle
   dateCreated: BigInt
   dateUpdated: BigInt
   levelTotal: Circle
   balanceTotal: Circle
   ratingTotal: Circle
-  uis: Circle
-  styles: Circle
+  allMyThemes: Circle
+  allMyTypeStyles: Circle
   inbox: Circle
   search: Circle
+  selectedProfile: Profile
   profiles: [Profile]
 }

@@ -1,11 +1,11 @@
-import * as uuid from 'uuid/v1';
 import firestore from './../index';
 
 // This should be in a cloud function
 export default async function cloneToNewDocument(doc: any) {
   console.time('cloneToNewDocument time to complete');
   const newCollection = `${doc.collection}-clones`;
-  const newUid = uuid();
+  const ref = firestore.collection(newCollection).doc();
+  const newUid = ref.id;
   const moveOldId = `${doc.collection}Id`;
 
   doc[moveOldId] = doc.id;

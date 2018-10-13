@@ -20,7 +20,7 @@ export default async function updateDocumentById(
     status: '',
     message: '',
     updatedDocumentId: null,
-    contextProfileId: context.profileId,
+    contextProfileId: context.selectedProfileId,
   };
 
   if (!updatedDocument.id) {
@@ -29,7 +29,7 @@ export default async function updateDocumentById(
       message:
         'Sorry, I was not given a unique id. I need to know what it is you wish for me to update. Please try again.',
       updatedDocumentId: null,
-      contextProfileId: context.profileId,
+      contextProfileId: context.selectedProfileId,
     };
     return response;
   }
@@ -40,7 +40,7 @@ export default async function updateDocumentById(
       message:
         'Sorry, I was not given a collection name. I have no idea where I would put this. Please add one.',
       updatedDocumentId: null,
-      contextProfileId: context.profileId,
+      contextProfileId: context.selectedProfileId,
     };
     return response;
   }
@@ -53,11 +53,15 @@ export default async function updateDocumentById(
       .then(async (document: any) => {
         const doc = document.data();
         if (
-          isCreator(updatedDocument.creator, context.profileId) ||
-          isEditor(updatedDocument.editors, context.profileId) ||
+          isCreator(updatedDocument.creator, context.selectedProfileId) ||
+          isEditor(updatedDocument.editors, context.selectedProfileId) ||
           isRequestingUser(updatedDocument.id, context.userId)
         ) {
           cloneToNewDocument(doc);
+
+          if (!updatedDocument.dateUpdated) {
+            updatedDocument.dateUpdated = Date.now();
+          }
 
           await firestore
             .collection(updatedDocument.collection)
@@ -68,7 +72,7 @@ export default async function updateDocumentById(
             status: 'SUCCESS',
             message: 'I successfully updated that for you.',
             updatedDocumentId: doc.id,
-            contextProfileId: context.profileId,
+            contextProfileId: context.selectedProfileId,
           };
         } else {
           response = {
@@ -76,7 +80,7 @@ export default async function updateDocumentById(
             message:
               'Sorry, you must be the creator or an editor to update this.',
             updatedDocumentId: null,
-            contextProfileId: context.profileId,
+            contextProfileId: context.selectedProfileId,
           };
         }
       });
@@ -86,7 +90,7 @@ export default async function updateDocumentById(
       status: 'ERROR',
       message: 'Sorry, I had an error updating that.  Please try again.',
       updatedDocumentId: null,
-      contextProfileId: context.profileId,
+      contextProfileId: context.selectedProfileId,
     };
   }
 

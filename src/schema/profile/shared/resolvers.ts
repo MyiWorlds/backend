@@ -12,11 +12,11 @@ export const resolvers: ResolverMap = {
     rating: async (profile: any, _: null, context: Context) =>
       getDocumentById('circles', profile.rating, context),
 
-    selectedUi: async (profile: any, _: null, context: Context) =>
-      getDocumentById('circles', profile.selectedUi, context),
+    myTypeStyles: async (profile: any, _: null, context: Context) =>
+      getDocumentById('circles', profile.myTypeStyles, context),
 
-    selectedStyle: async (profile: any, _: null, context: Context) =>
-      getDocumentById('circles', profile.selectedStyle, context),
+    myTheme: async (profile: any, _: null, context: Context) =>
+      getDocumentById('circles', profile.myTheme, context),
 
     homePublic: async (profile: any, _: null, context: Context) =>
       getDocumentById('circles', profile.homePublic, context),

@@ -50,7 +50,7 @@ export default async function deleteDocument(
     }
 
     if (
-      isCreator(documentExists.creator, context.profileId) ||
+      isCreator(documentExists.creator, context.selectedProfileId) ||
       isRequestingUser(documentExists.id, context.userId)
     ) {
       let keepDeleting = true;

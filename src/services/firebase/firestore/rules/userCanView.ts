@@ -7,7 +7,7 @@ import {
   } from '.';
 
 export const userCanView = (document: any, context: Context) => {
-  const { userId, profileId } = context;
+  const { userId, selectedProfileId } = context;
 
   // if (userId !== queriedUserId) {
   //   return false;
@@ -15,9 +15,9 @@ export const userCanView = (document: any, context: Context) => {
 
   return (
     isPublic(document.public) ||
-    isCreator(document.creator, profileId) ||
-    isEditor(document.editors, profileId) ||
-    isUser(document.users, profileId) ||
+    isCreator(document.creator, selectedProfileId) ||
+    isEditor(document.editors, selectedProfileId) ||
+    isUser(document.users, selectedProfileId) ||
     isRequestingUser(document.id, userId) ||
     isRequestingUser(document.userId, userId)
   );

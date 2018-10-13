@@ -6,7 +6,7 @@ export const resolvers: ResolverMap = {
   Query: {
     getProfileById: async (_: null, args: { id: string }) => {
       try {
-        const userDoc = await firestore.doc(`profile/${args.id}`).get();
+        const userDoc = await firestore.doc(`profiles/${args.id}`).get();
         // const user = userDoc.data() as User | undefined;
         const user = userDoc.data();
         return user;

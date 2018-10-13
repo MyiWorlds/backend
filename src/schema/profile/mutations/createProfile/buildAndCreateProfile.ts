@@ -1,9 +1,8 @@
-import * as uuid from 'uuid/v1';
 import createDocument from '../../../../services/firebase/firestore/mutations/createDocument';
 import firestore from './../../../../services/firebase/firestore/index';
+import isUsernameTaken from '../shared/isUsernameTaken';
 import updateDocumentById from '../../../../services/firebase/firestore/mutations/updateDocumentById';
-import { getDocumentById } from '../../../../services/firebase/firestore/queries';
-import { isAllowedUsername } from './isAllowedUsername';
+import { isAllowedUsername } from '../shared/isAllowedUsername';
 
 interface Response {
   status: string;
@@ -25,41 +24,32 @@ export default async function buildAndCreateProfile(
       message:
         'I am sorry, I can not let you use that username.  Please try another',
       updatedDocumentId: null,
-      contextProfileId: context.profileId,
+      contextProfileId: context.selectedProfileId,
     };
     return response;
   }
 
   try {
-    const checkIfUsernameIsTaken = await firestore
-      .collection('profiles')
-      .where('username', '==', username)
-      .limit(1)
-      .get()
-      .then((response: any) => {
-        return response.docs;
-      });
-
-    if (checkIfUsernameIsTaken.length) {
+    if (await isUsernameTaken(username)) {
       const response: Response = {
         status: 'DENIED',
         message: 'I am sorry, that username is already taken',
         updatedDocumentId: null,
-        contextProfileId: context.profileId,
+        contextProfileId: context.selectedProfileId,
       };
       return response;
     }
 
-    const id = uuid();
+    const profileRef = firestore.collection('profiles').doc();
+    const id = profileRef.id;
 
-    // I should seed the database with some default circles
-    // Then use the id from that here?
-    const selectedStyle = await createDocument(
+    const level = await createDocument(
       {
         public: true,
         collection: 'circles',
-        type: 'DATA',
-        creator: id,
+        type: 'LINES',
+        creator: 'APP',
+        editors: [id],
         data: {},
       },
       context,
@@ -69,18 +59,40 @@ export default async function buildAndCreateProfile(
       {
         collection: 'circles',
         type: 'LINES_TOTALED',
-        creator: id,
+        creator: 'APP',
+        editors: [id],
         lines: [],
       },
       context,
     );
 
-    const selectedUi = await createDocument(
+    const myTypeStyles = await createDocument(
       {
         collection: 'circles',
         type: 'LINES',
-        creator: id,
+        creator: 'APP',
+        editors: [id],
         lines: [],
+      },
+      context,
+    );
+
+    const myTheme = await createDocument(
+      {
+        collection: 'circles',
+        type: 'DATA',
+        creator: 'APP',
+        editors: [id],
+        data: {
+          palette: {
+            primary: {
+              main: '#2196F3',
+            },
+            secondary: {
+              main: '#f44336',
+            },
+          },
+        },
       },
       context,
     );
@@ -90,7 +102,8 @@ export default async function buildAndCreateProfile(
         public: true,
         collection: 'circles',
         type: 'LINES',
-        creator: id,
+        creator: 'APP',
+        editors: [id],
         lines: [],
       },
       context,
@@ -102,7 +115,8 @@ export default async function buildAndCreateProfile(
         pii: true,
         collection: 'circles',
         type: 'LINES',
-        creator: id,
+        creator: 'APP',
+        editors: [id],
         lines: [],
       },
       context,
@@ -113,7 +127,8 @@ export default async function buildAndCreateProfile(
         public: true,
         collection: 'circles',
         type: 'LINES',
-        creator: id,
+        creator: 'APP',
+        editors: [id],
         lines: [],
       },
       context,
@@ -124,7 +139,8 @@ export default async function buildAndCreateProfile(
         public: true,
         collection: 'circles',
         type: 'LINES',
-        creator: id,
+        creator: 'APP',
+        editors: [id],
         lines: [],
       },
       context,
@@ -133,33 +149,40 @@ export default async function buildAndCreateProfile(
     const profile = {
       id,
       collection: 'profiles',
+      public: true,
       username,
       canCreate: true,
       profileMedia: '',
-      public: true,
-      selectedStyle: selectedStyle.createdDocumentId,
-      styleEnabled: false,
+      level: level.createdDocumentId,
       rating: rating.createdDocumentId,
-      uiEnabled: false,
-      selectedUi: selectedUi.createdDocumentId,
+      isDarkTheme: true,
+      isMyTypeStyles: false,
+      myTypeStyles: myTypeStyles.createdDocumentId,
+      isMyTheme: false,
+      myTheme: myTheme.createdDocumentId,
       homePublic: homePublic.createdDocumentId,
       homePrivate: homePrivate.createdDocumentId,
       following: following.createdDocumentId,
       history: history.createdDocumentId,
     };
 
-    // I need to add this to a user after created
     const createProfile = await createDocument(profile, context);
 
-    const getUser = await getDocumentById('users', context.userId, context);
+    const getUser = await firestore
+      .collection('users')
+      .doc(context.userId)
+      .get()
+      .then((res: any) => res.data());
 
     const user = {
       id: context.userId,
       collection: 'users',
-      profiles: [...getUser.profiles, createProfile.createdDocumentId],
+      profiles:
+        getUser.profiles && getUser.profiles.length
+          ? [...getUser.profiles, createProfile.createdDocumentId]
+          : [createProfile.createdDocumentId],
     };
 
-    // need to test this is working
     await updateDocumentById(user, context, true);
 
     return createProfile;

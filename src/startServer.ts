@@ -21,7 +21,7 @@ export const startServer = async () => {
       const headers = {
         userId: await getUserId(req.headers.token),
         queriedUserId: req.headers['user-id'],
-        profileId: req.headers['profile-id'],
+        selectedProfileId: req.headers['selected-profile-id'],
         validated: false,
       };
 
@@ -32,7 +32,7 @@ export const startServer = async () => {
           .then((result: any) => result.data());
 
         headers.queriedUserId = user.id;
-        headers.profileId = user.profiles[0].id;
+        headers.selectedProfileId = user.profiles[0].id;
       }
 
       if (headers.userId === headers.queriedUserId) {
@@ -40,7 +40,7 @@ export const startServer = async () => {
       } else {
         headers.userId = null;
         headers.queriedUserId = null;
-        headers.profileId = null;
+        headers.selectedProfileId = null;
       }
 
       return headers;

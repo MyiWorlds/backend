@@ -26,6 +26,7 @@ getCircleById: ICircle | null;
 getCirclesByFilters: ICircle | null;
 getCirclesByIds: Array<ICircle> | null;
 getProfileById: IProfile | null;
+getProfileByUsername: IGetProfileByUsernameResponse | null;
 user: IUser | null;
 }
 
@@ -46,6 +47,10 @@ ids: Array<string>;
 
 interface IGetProfileByIdOnQueryArguments {
 id: string;
+}
+
+interface IGetProfileByUsernameOnQueryArguments {
+username: string;
 }
 
 interface ICircle {
@@ -95,14 +100,21 @@ dateCreated: any | null;
 dateUpdated: any | null;
 level: ICircle | null;
 rating: ICircle | null;
-uiEnabled: boolean | null;
-selectedUi: ICircle | null;
-styleEnabled: boolean | null;
-selectedStyle: ICircle | null;
+isDarkTheme: boolean | null;
+isMyTypeStyles: boolean | null;
+myTypeStyles: ICircle | null;
+isMyTheme: boolean | null;
+myTheme: ICircle | null;
 homePublic: ICircle | null;
 homePrivate: ICircle | null;
 following: ICircle | null;
 history: ICircle | null;
+}
+
+interface IGetProfileByUsernameResponse {
+__typename: "getProfileByUsernameResponse";
+usernameAvailable: boolean | null;
+usernameInvalid: boolean | null;
 }
 
 interface IUser {
@@ -112,16 +124,16 @@ collection: string | null;
 email: string | null;
 history: ICircle | null;
 canCreate: boolean | null;
-defaultMedia: ICircle | null;
 dateCreated: any | null;
 dateUpdated: any | null;
 levelTotal: ICircle | null;
 balanceTotal: ICircle | null;
 ratingTotal: ICircle | null;
-uis: ICircle | null;
-styles: ICircle | null;
+allMyThemes: ICircle | null;
+allMyTypeStyles: ICircle | null;
 inbox: ICircle | null;
 search: ICircle | null;
+selectedProfile: IProfile | null;
 profiles: Array<IProfile> | null;
 }
 
@@ -129,6 +141,7 @@ interface IMutation {
 __typename: "Mutation";
 createCircle: ICreateCircleResponse | null;
 createProfile: ICreateProfileResponse | null;
+updateProfile: IUpdateProfileResponse | null;
 createUser: ICreateUserResponse | null;
 }
 
@@ -168,7 +181,11 @@ lines?: Array<string> | null;
 
 interface ICreateProfileOnMutationArguments {
 username: string;
-profileMedia?: string | null;
+}
+
+interface IUpdateProfileOnMutationArguments {
+id: string;
+data?: any | null;
 }
 
 interface ICreateUserOnMutationArguments {
@@ -189,6 +206,13 @@ __typename: "CreateProfileResponse";
 status: string | null;
 message: string | null;
 createdProfile: IProfile | null;
+}
+
+interface IUpdateProfileResponse {
+__typename: "UpdateProfileResponse";
+status: string | null;
+message: string | null;
+updatedProfile: IProfile | null;
 }
 
 interface ICreateUserResponse {

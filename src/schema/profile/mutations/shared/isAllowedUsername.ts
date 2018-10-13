@@ -1,5 +1,15 @@
 export const isAllowedUsername = (username: string) => {
-  const bannedUsernames = ['', 'test', 'app', 'admin', 'user'];
+  const bannedUsernames = [
+    '',
+    'test',
+    'app',
+    'admin',
+    'user',
+    'myiworlds',
+    'account',
+    'accounts',
+    'admins',
+  ];
   const notBannedUsername = !bannedUsernames.includes(username);
   const bannedSymbols = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
 

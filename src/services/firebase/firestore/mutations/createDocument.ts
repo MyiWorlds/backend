@@ -1,4 +1,3 @@
-import * as uuid from 'uuid/v1';
 import firestore from '../../firestore/index';
 import stackdriver from './../../../stackdriver';
 
@@ -18,12 +17,22 @@ export default async function createDocument(
     status: '',
     message: '',
     createdDocumentId: null,
-    contextProfileId: context.profileId,
+    contextProfileId: context.selectedProfileId,
   };
 
   try {
+    if (!documentToCreate.collection) {
+      response.status = 'ERROR';
+      response.message =
+        'Sorry, I was not given a collection name. I have no idea where I would put this. Please add one.';
+
+      return response;
+    }
+
     if (!documentToCreate.id) {
-      documentToCreate.id = uuid();
+      const ref = firestore.collection(documentToCreate.collection).doc();
+
+      documentToCreate.id = ref.id;
     }
 
     if (!documentToCreate.dateCreated) {
@@ -32,14 +41,6 @@ export default async function createDocument(
 
     if (!documentToCreate.dateUpdated) {
       documentToCreate.dateUpdated = Date.now();
-    }
-
-    if (!documentToCreate.collection) {
-      response.status = 'ERROR';
-      response.message =
-        'Sorry, I was not given a collection name. I have no idea where I would put this. Please add one.';
-
-      return response;
     }
 
     await firestore
