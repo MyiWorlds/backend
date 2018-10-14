@@ -10,7 +10,9 @@ export const resolvers: ResolverMap = {
   Query: {
     user: async (_: null, __: null, context: Context) => {
       try {
-        const userDoc = await firestore.doc(`users/${context.userId}`).get();
+        const userDoc = await firestore
+          .doc(`users/${context.user.userId}`)
+          .get();
         // const user = userDoc.data() as User | undefined;
         const user = userDoc.data();
         return user;

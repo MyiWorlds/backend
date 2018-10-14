@@ -1,8 +1,10 @@
+import * as DataLoader from 'dataloader';
 import firestore from './services/firebase/firestore/index';
 import getUserId from './services/firebase/authentication/getUserId';
 import stackdriver from './services/stackdriver';
 import { ApolloServer } from 'apollo-server';
 import { genSchema } from './utils/genSchema';
+import { getDocumentsByIds } from './services/firebase/firestore/queries';
 import 'dotenv/config';
 
 export const startServer = async () => {
@@ -32,7 +34,10 @@ export const startServer = async () => {
           .then((result: any) => result.data());
 
         headers.queriedUserId = user.id;
-        headers.selectedProfileId = user.profiles[0].id;
+
+        if (headers.selectedProfileId === 'null') {
+          headers.selectedProfileId = user.profiles[0].id;
+        }
       }
 
       if (headers.userId === headers.queriedUserId) {
@@ -43,7 +48,27 @@ export const startServer = async () => {
         headers.selectedProfileId = null;
       }
 
-      return headers;
+      return {
+        user: headers,
+        circleLoader: new DataLoader((keys: string[]) =>
+          getDocumentsByIds(
+            'circles',
+            keys,
+            headers && headers.selectedProfileId
+              ? headers.selectedProfileId
+              : null,
+          ),
+        ),
+        profileLoader: new DataLoader((keys: string[]) =>
+          getDocumentsByIds(
+            'profiles',
+            keys,
+            headers && headers.selectedProfileId
+              ? headers.selectedProfileId
+              : null,
+          ),
+        ),
+      };
     },
     formatError: (error: any) => {
       return stackdriver.report(new Error(error));

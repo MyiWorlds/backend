@@ -1,33 +1,69 @@
-import { getDocumentById } from '../../../services/firebase/firestore/queries';
 import { ResolverMap } from '../../../types/graphql-utils';
 
 export const resolvers: ResolverMap = {
   Profile: {
-    profileMedia: async (profile: any, _: null, context: Context) =>
-      getDocumentById('circles', profile.profileMedia, context),
-
-    level: async (profile: any, _: null, context: Context) =>
-      getDocumentById('circles', profile.level, context),
-
-    rating: async (profile: any, _: null, context: Context) =>
-      getDocumentById('circles', profile.rating, context),
-
-    myTypeStyles: async (profile: any, _: null, context: Context) =>
-      getDocumentById('circles', profile.myTypeStyles, context),
-
-    myTheme: async (profile: any, _: null, context: Context) =>
-      getDocumentById('circles', profile.myTheme, context),
-
-    homePublic: async (profile: any, _: null, context: Context) =>
-      getDocumentById('circles', profile.homePublic, context),
-
-    homePrivate: async (profile: any, _: null, context: Context) =>
-      getDocumentById('circles', profile.homePrivate, context),
-
-    following: async (profile: any, _: null, context: Context) =>
-      getDocumentById('circles', profile.following, context),
-
-    history: async (profile: any, _: null, context: Context) =>
-      getDocumentById('circles', profile.history, context),
+    profileMedia: async (profile: any, _: null, context: Context) => {
+      if (profile.profileMedia) {
+        return context.circleLoader.load(profile.profileMedia);
+      } else {
+        return null;
+      }
+    },
+    level: async (profile: any, _: null, context: Context) => {
+      if (profile.level) {
+        return context.circleLoader.load(profile.level);
+      } else {
+        return null;
+      }
+    },
+    rating: async (profile: any, _: null, context: Context) => {
+      if (profile.rating) {
+        return context.circleLoader.load(profile.rating);
+      } else {
+        return null;
+      }
+    },
+    myTypeStyles: async (profile: any, _: null, context: Context) => {
+      if (profile.myTypeStyles) {
+        return context.circleLoader.load(profile.myTypeStyles);
+      } else {
+        return null;
+      }
+    },
+    myTheme: async (profile: any, _: null, context: Context) => {
+      if (profile.myTheme) {
+        return context.circleLoader.load(profile.myTheme);
+      } else {
+        return null;
+      }
+    },
+    homePublic: async (profile: any, _: null, context: Context) => {
+      if (profile.homePublic) {
+        return context.circleLoader.load(profile.homePublic);
+      } else {
+        return null;
+      }
+    },
+    homePrivate: async (profile: any, _: null, context: Context) => {
+      if (profile.homePrivate) {
+        return context.circleLoader.load(profile.homePrivate);
+      } else {
+        return null;
+      }
+    },
+    following: async (profile: any, _: null, context: Context) => {
+      if (profile.following) {
+        return context.circleLoader.load(profile.following);
+      } else {
+        return null;
+      }
+    },
+    history: async (profile: any, _: null, context: Context) => {
+      if (profile.history) {
+        return context.circleLoader.load(profile.history);
+      } else {
+        return null;
+      }
+    },
   },
 };

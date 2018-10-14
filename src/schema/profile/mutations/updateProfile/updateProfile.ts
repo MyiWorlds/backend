@@ -28,7 +28,7 @@ export default async function updateProfile(
           message:
             'I am sorry, I can not let you use that username.  Please try another',
           updatedDocumentId: null,
-          contextProfileId: context.selectedProfileId,
+          contextProfileId: context.user.selectedProfileId,
         };
         return response;
       }
@@ -38,7 +38,7 @@ export default async function updateProfile(
           status: 'DENIED',
           message: 'I am sorry, that username is already taken',
           updatedDocumentId: null,
-          contextProfileId: context.selectedProfileId,
+          contextProfileId: context.user.selectedProfileId,
         };
         return response;
       }

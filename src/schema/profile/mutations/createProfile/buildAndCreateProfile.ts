@@ -24,7 +24,7 @@ export default async function buildAndCreateProfile(
       message:
         'I am sorry, I can not let you use that username.  Please try another',
       updatedDocumentId: null,
-      contextProfileId: context.selectedProfileId,
+      contextProfileId: context.user.selectedProfileId,
     };
     return response;
   }
@@ -35,7 +35,7 @@ export default async function buildAndCreateProfile(
         status: 'DENIED',
         message: 'I am sorry, that username is already taken',
         updatedDocumentId: null,
-        contextProfileId: context.selectedProfileId,
+        contextProfileId: context.user.selectedProfileId,
       };
       return response;
     }
@@ -170,12 +170,12 @@ export default async function buildAndCreateProfile(
 
     const getUser = await firestore
       .collection('users')
-      .doc(context.userId)
+      .doc(context.user.userId)
       .get()
       .then((res: any) => res.data());
 
     const user = {
-      id: context.userId,
+      id: context.user.userId,
       collection: 'users',
       profiles:
         getUser.profiles && getUser.profiles.length

@@ -17,7 +17,7 @@ export default async function createDocument(
     status: '',
     message: '',
     createdDocumentId: null,
-    contextProfileId: context.selectedProfileId,
+    contextProfileId: context.user.selectedProfileId,
   };
 
   try {
