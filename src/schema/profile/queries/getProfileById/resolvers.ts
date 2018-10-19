@@ -5,13 +5,17 @@ import { ResolverMap } from '../../../../types/graphql-utils';
 export const resolvers: ResolverMap = {
   Query: {
     getProfileById: async (_: null, args: { id: string }) => {
-      try {
-        const userDoc = await firestore.doc(`profiles/${args.id}`).get();
-        // const user = userDoc.data() as User | undefined;
-        const user = userDoc.data();
-        return user;
-      } catch (error) {
-        stackdriver.report(error);
+      if (args.id !== 'null') {
+        try {
+          const userDoc = await firestore.doc(`profiles/${args.id}`).get();
+          const user = userDoc.data();
+
+          return user;
+        } catch (error) {
+          stackdriver.report(error);
+        }
+      } else {
+        return null;
       }
     },
   },

@@ -7,18 +7,27 @@ import {
   } from '.';
 
 export const userCanView = (document: any, context: Context) => {
-  const { userId, selectedProfileId } = context;
+  if (isPublic(document.public)) {
+    return true;
+  }
 
-  // if (userId !== queriedUserId) {
-  //   return false;
-  // }
+  if (context) {
+    const { userId, selectedProfileId } = context;
 
-  return (
-    isPublic(document.public) ||
-    isCreator(document.creator, selectedProfileId) ||
-    isEditor(document.editors, selectedProfileId) ||
-    isUser(document.users, selectedProfileId) ||
-    isRequestingUser(document.id, userId) ||
-    isRequestingUser(document.userId, userId)
-  );
+    if (selectedProfileId) {
+      return (
+        isCreator(document.creator, selectedProfileId) ||
+        isEditor(document.editors, selectedProfileId) ||
+        isUser(document.users, selectedProfileId) ||
+        isRequestingUser(document.id, userId) ||
+        isRequestingUser(document.userId, userId)
+      );
+    } else if (userId) {
+      return (
+        isRequestingUser(document.id, userId) ||
+        isRequestingUser(document.userId, userId)
+      );
+    }
+  }
+  return false;
 };

@@ -17,10 +17,17 @@ export default async function createDocument(
     status: '',
     message: '',
     createdDocumentId: null,
-    contextProfileId: context.user.selectedProfileId,
+    contextProfileId: context.selectedProfileId,
   };
 
   try {
+    if (!context.selectedProfileId) {
+      response.status = 'ERROR';
+      response.message = `You must be logged in to create`;
+
+      return response;
+    }
+
     if (!documentToCreate.collection) {
       response.status = 'ERROR';
       response.message =

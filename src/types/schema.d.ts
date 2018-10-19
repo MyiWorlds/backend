@@ -106,7 +106,7 @@ myTypeStyles: ICircle | null;
 isMyTheme: boolean | null;
 myTheme: ICircle | null;
 homePublic: ICircle | null;
-homePrivate: ICircle | null;
+home: ICircle | null;
 following: ICircle | null;
 history: ICircle | null;
 }

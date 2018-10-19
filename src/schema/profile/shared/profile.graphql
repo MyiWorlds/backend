@@ -15,7 +15,7 @@ type Profile {
   isMyTheme: Boolean
   myTheme: Circle
   homePublic: Circle
-  homePrivate: Circle
+  home: Circle
   following: Circle
   history: Circle
 }

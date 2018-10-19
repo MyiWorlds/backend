@@ -27,17 +27,16 @@ export const startServer = async () => {
         validated: false,
       };
 
-      if (headers.userId && headers.queriedUserId === 'null') {
+      if (
+        headers.userId &&
+        (headers.queriedUserId === 'null' || headers.queriedUserId === '')
+      ) {
         const user = await firestore
           .doc(`users/${headers.userId}`)
           .get()
           .then((result: any) => result.data());
 
         headers.queriedUserId = user.id;
-
-        if (headers.selectedProfileId === 'null') {
-          headers.selectedProfileId = user.profiles[0].id;
-        }
       }
 
       if (headers.userId === headers.queriedUserId) {
@@ -48,27 +47,17 @@ export const startServer = async () => {
         headers.selectedProfileId = null;
       }
 
-      return {
-        user: headers,
-        circleLoader: new DataLoader((keys: string[]) =>
-          getDocumentsByIds(
-            'circles',
-            keys,
-            headers && headers.selectedProfileId
-              ? headers.selectedProfileId
-              : null,
-          ),
+      const context = {
+        ...headers,
+        circleLoader: new DataLoader(async (keys: string[]) =>
+          getDocumentsByIds('circles', keys, headers),
         ),
-        profileLoader: new DataLoader((keys: string[]) =>
-          getDocumentsByIds(
-            'profiles',
-            keys,
-            headers && headers.selectedProfileId
-              ? headers.selectedProfileId
-              : null,
-          ),
+        profileLoader: new DataLoader(async (keys: string[]) =>
+          getDocumentsByIds('profiles', keys, headers),
         ),
       };
+
+      return context;
     },
     formatError: (error: any) => {
       return stackdriver.report(new Error(error));
@@ -76,7 +65,7 @@ export const startServer = async () => {
   });
 
   const app = await server
-    .listen({ port: process.env.PORT || 4000 })
+    .listen({ port: process.env.PORT || 8000 })
     .then(({ url }: { url: string }) => {
       console.log(`🚀  Server ready at ${url}`);
     });

@@ -3,7 +3,7 @@ import { ResolverMap } from '../../../types/graphql-utils';
 export const resolvers: ResolverMap = {
   Profile: {
     profileMedia: async (profile: any, _: null, context: Context) => {
-      if (profile.profileMedia) {
+      if (profile.profileMedia && profile.profileMedia !== '') {
         return context.circleLoader.load(profile.profileMedia);
       } else {
         return null;
@@ -44,9 +44,9 @@ export const resolvers: ResolverMap = {
         return null;
       }
     },
-    homePrivate: async (profile: any, _: null, context: Context) => {
-      if (profile.homePrivate) {
-        return context.circleLoader.load(profile.homePrivate);
+    home: async (profile: any, _: null, context: Context) => {
+      if (profile.home) {
+        return context.circleLoader.load(profile.home);
       } else {
         return null;
       }

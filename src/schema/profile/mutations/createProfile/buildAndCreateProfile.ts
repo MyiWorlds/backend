@@ -24,7 +24,7 @@ export default async function buildAndCreateProfile(
       message:
         'I am sorry, I can not let you use that username.  Please try another',
       updatedDocumentId: null,
-      contextProfileId: context.user.selectedProfileId,
+      contextProfileId: context.selectedProfileId,
     };
     return response;
   }
@@ -35,7 +35,7 @@ export default async function buildAndCreateProfile(
         status: 'DENIED',
         message: 'I am sorry, that username is already taken',
         updatedDocumentId: null,
-        contextProfileId: context.user.selectedProfileId,
+        contextProfileId: context.selectedProfileId,
       };
       return response;
     }
@@ -109,7 +109,7 @@ export default async function buildAndCreateProfile(
       context,
     );
 
-    const homePrivate = await createDocument(
+    const home = await createDocument(
       {
         public: false,
         pii: true,
@@ -161,7 +161,7 @@ export default async function buildAndCreateProfile(
       isMyTheme: false,
       myTheme: myTheme.createdDocumentId,
       homePublic: homePublic.createdDocumentId,
-      homePrivate: homePrivate.createdDocumentId,
+      home: home.createdDocumentId,
       following: following.createdDocumentId,
       history: history.createdDocumentId,
     };
@@ -170,12 +170,12 @@ export default async function buildAndCreateProfile(
 
     const getUser = await firestore
       .collection('users')
-      .doc(context.user.userId)
+      .doc(context.userId)
       .get()
       .then((res: any) => res.data());
 
     const user = {
-      id: context.user.userId,
+      id: context.userId,
       collection: 'users',
       profiles:
         getUser.profiles && getUser.profiles.length
