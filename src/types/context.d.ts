@@ -4,4 +4,5 @@ interface Context {
   selectedProfileId: string;
   profileLoader?: any;
   circleLoader?: any;
+  validated: boolean;
 }

@@ -25,8 +25,8 @@ __typename: "Query";
 getCircleById: ICircle | null;
 getCirclesByFilters: ICircle | null;
 getCirclesByIds: Array<ICircle> | null;
-getProfileById: IProfile | null;
 getProfileByUsername: IGetProfileByUsernameResponse | null;
+getProfileById: IProfile | null;
 user: IUser | null;
 }
 
@@ -45,12 +45,12 @@ interface IGetCirclesByIdsOnQueryArguments {
 ids: Array<string>;
 }
 
-interface IGetProfileByIdOnQueryArguments {
-id: string;
-}
-
 interface IGetProfileByUsernameOnQueryArguments {
 username: string;
+}
+
+interface IGetProfileByIdOnQueryArguments {
+id: string;
 }
 
 interface ICircle {
