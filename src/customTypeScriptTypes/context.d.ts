@@ -5,4 +5,6 @@ interface Context {
   profileLoader?: any;
   circleLoader?: any;
   validated: boolean;
+  addToHistory: boolean;
+  profileHistoryId: string;
 }

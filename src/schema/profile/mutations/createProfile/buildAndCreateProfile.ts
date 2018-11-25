@@ -80,6 +80,9 @@ export default async function buildAndCreateProfile(
     const myTheme = await createDocument(
       {
         collection: 'circles',
+        title: 'My Theme',
+        description:
+          'The theme that this profile uses to interact with the application.',
         type: 'DATA',
         creator: 'APP',
         editors: [id],
@@ -141,6 +144,9 @@ export default async function buildAndCreateProfile(
         type: 'LINES',
         creator: 'APP',
         editors: [id],
+        title: 'My History',
+        description:
+          'The history of what I have done on the platform.  This can be turned on/off through the profile controls.',
         lines: [],
       },
       context,

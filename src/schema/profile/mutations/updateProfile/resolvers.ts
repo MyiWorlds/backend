@@ -1,5 +1,5 @@
 import updateProfile from './updateProfile';
-import { ResolverMap } from '../../../../types/graphql-utils';
+import { ResolverMap } from '../../../../customTypeScriptTypes/graphql-utils';
 
 export const resolvers: ResolverMap = {
   Mutation: {
@@ -17,6 +17,7 @@ export const resolvers: ResolverMap = {
         args.data.isDarkTheme,
         args.data.isMyTheme,
         args.data.isMyTypeStyles,
+        args.data.addToHistory,
         context,
       ),
   },

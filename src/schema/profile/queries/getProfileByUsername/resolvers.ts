@@ -1,7 +1,7 @@
 import firestore from '../../../../services/firebase/firestore/index';
 import stackdriver from '../../../../services/stackdriver';
 import { isAllowedUsername } from '../../mutations/shared/isAllowedUsername';
-import { ResolverMap } from '../../../../types/graphql-utils';
+import { ResolverMap } from '../../../../customTypeScriptTypes/graphql-utils';
 
 interface Response {
   usernameAvailable: boolean;

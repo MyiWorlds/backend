@@ -108,6 +108,7 @@ myTheme: ICircle | null;
 homePublic: ICircle | null;
 home: ICircle | null;
 following: ICircle | null;
+addToHistory: boolean | null;
 history: ICircle | null;
 }
 
@@ -122,7 +123,6 @@ __typename: "User";
 id: string;
 collection: string | null;
 email: string | null;
-history: ICircle | null;
 canCreate: boolean | null;
 dateCreated: any | null;
 dateUpdated: any | null;

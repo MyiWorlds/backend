@@ -1,3 +1,4 @@
+import addToProfileHistory from './addToProfileHistory';
 import firestore from '../../firestore/index';
 import stackdriver from './../../../stackdriver';
 
@@ -9,8 +10,9 @@ interface Response {
 }
 
 export default async function createDocument(
-  documentToCreate: any,
+  documentToCreate: Circle | Profile | User,
   context: Context,
+  addToHistory?: boolean,
 ) {
   console.time('Time to createDocument');
   const response: Response = {
@@ -57,7 +59,21 @@ export default async function createDocument(
 
     response.status = 'SUCCESS';
     response.message = 'Entity was created';
-    response.createdDocumentId = documentToCreate.id;
+    response.createdDocumentId = documentToCreate.id || null;
+
+    if (
+      response.status === 'SUCCESS' &&
+      (addToHistory || (context.addToHistory && addToHistory === undefined))
+    ) {
+      const circle = {
+        type: 'CREATED',
+        settings: {
+          id: documentToCreate.id,
+          collection: documentToCreate.collection,
+        },
+      };
+      addToProfileHistory(circle, context);
+    }
   } catch (error) {
     stackdriver.report(error);
     response.status = 'ERROR';

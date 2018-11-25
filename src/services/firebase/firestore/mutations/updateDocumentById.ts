@@ -1,3 +1,4 @@
+import addToProfileHistory from './addToProfileHistory';
 import cloneToNewDocument from './cloneToNewDocument';
 import firestore from './../index';
 import stackdriver from './../../../stackdriver';
@@ -14,6 +15,7 @@ export default async function updateDocumentById(
   updatedDocument: any,
   context: Context,
   merge: boolean,
+  addToHistory?: boolean,
 ) {
   console.time('updateDocumentById time to complete');
   let response: Response = {
@@ -91,6 +93,18 @@ export default async function updateDocumentById(
           };
         }
       });
+
+    if (addToHistory || (context.addToHistory && addToHistory === undefined)) {
+      const circle = {
+        type: 'UPDATED',
+        settings: {
+          id: updatedDocument.id,
+          collection: updatedDocument.collection,
+        },
+      };
+
+      addToProfileHistory(circle, context);
+    }
   } catch (error) {
     stackdriver.report(error);
     response = {

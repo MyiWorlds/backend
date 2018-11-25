@@ -28,7 +28,7 @@ export default async function getDocumentsByFilters(
   filters: Filter[],
   orderBy: string,
   numberOfResults: number,
-  pageCursor: any | null,
+  pageCursor: string | null,
   context: Context,
 ) {
   console.time('getDocumentsByFilters time to complete');
@@ -77,7 +77,8 @@ export default async function getDocumentsByFilters(
         if (userCanView(result, context)) {
           response.lines.push(result);
         } else {
-          response.lines.push(defaultCircleSwitch('PERMISSION_DENIED', result));
+          result.type = 'PERMISSION_DENIED';
+          response.lines.push(defaultCircleSwitch(result, context));
         }
         return result;
       });

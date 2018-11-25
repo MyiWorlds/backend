@@ -1,5 +1,7 @@
+import addToProfileHistory from '../mutations/addToProfileHistory';
 import firestore from './../index';
 import stackdriver from './../../../stackdriver';
+import { defaultCircleSwitch } from '../functions/defaultCircleSwitch';
 import { userCanView } from './../rules';
 
 export default async function getDocumentById(
@@ -24,12 +26,21 @@ export default async function getDocumentById(
       } else if (userCanView(document, context)) {
         response = document;
       } else {
-        response = {
-          id,
-          collection,
-          type: 'PERMISSION_DENIED',
-          title: 'Sorry, you do not have the required permissions to see this.',
+        response.type = 'PERMISSION_DENIED';
+        response.collection = collection;
+        response = defaultCircleSwitch(response, context);
+      }
+
+      if (context.addToHistory) {
+        const circle = {
+          type: 'UPDATED',
+          settings: {
+            id: response.id,
+            collection: response.collection,
+          },
         };
+
+        addToProfileHistory(circle, context);
       }
     } catch (error) {
       stackdriver.report(error);

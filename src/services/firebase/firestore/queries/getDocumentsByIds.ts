@@ -1,3 +1,4 @@
+import addToProfileHistory from '../mutations/addToProfileHistory';
 import firestore from './../index';
 import stackdriver from './../../../stackdriver';
 import { defaultCircleSwitch } from '../functions/defaultCircleSwitch';
@@ -22,6 +23,18 @@ export default async function getDocumentsByIds(
         .then((circles2: any[]) => {
           return circles2.map((cir: any) => cir.data());
         });
+
+      if (context.addToHistory) {
+        const circle = {
+          type: 'VIEWED_BY_IDS',
+          settings: {
+            collection,
+            ids,
+          },
+        };
+
+        addToProfileHistory(circle, context);
+      }
 
       // Transform undefined into objects
       const queryResultOrder = getEntities.reduce(
@@ -49,11 +62,12 @@ export default async function getDocumentsByIds(
 
       sortedEntities.forEach((document: any) => {
         if (document.type === 'DOES_NOT_EXIST') {
-          response.push(defaultCircleSwitch('DOES_NOT_EXIST', document));
+          document.type = response.push(defaultCircleSwitch(document, context));
         } else if (userCanView(document, context)) {
           response.push(document);
         } else {
-          response.push(defaultCircleSwitch('PERMISSION_DENIED', document));
+          document.type = 'PERMISSION_DENIED';
+          response.push(defaultCircleSwitch(document, context));
         }
       });
     }

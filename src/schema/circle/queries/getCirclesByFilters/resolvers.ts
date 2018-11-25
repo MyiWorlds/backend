@@ -1,6 +1,6 @@
 import getDocumentsByFilters from '../../../../services/firebase/firestore/queries/getDocumentsByFilters';
 import stackdriver from '../../../../services/stackdriver';
-import { ResolverMap } from '../../../../types/graphql-utils';
+import { ResolverMap } from '../../../../customTypeScriptTypes/graphql-utils';
 
 interface Filter {
   property: string;

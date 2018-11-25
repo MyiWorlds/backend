@@ -1,5 +1,5 @@
 import buildAndCreateProfile from './buildAndCreateProfile';
-import { ResolverMap } from '../../../../types/graphql-utils';
+import { ResolverMap } from '../../../../customTypeScriptTypes/graphql-utils';
 
 export const resolvers: ResolverMap = {
   Mutation: {

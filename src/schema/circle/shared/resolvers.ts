@@ -1,5 +1,5 @@
 import stackdriver from './../../../services/stackdriver';
-import { ResolverMap } from '../../../types/graphql-utils';
+import { ResolverMap } from '../../../customTypeScriptTypes/graphql-utils';
 
 export const resolvers: ResolverMap = {
   Circle: {

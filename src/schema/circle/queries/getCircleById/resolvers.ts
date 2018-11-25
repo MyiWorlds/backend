@@ -1,5 +1,5 @@
 import getDocumentById from '../../../../services/firebase/firestore/queries/getDocumentById';
-import { ResolverMap } from '../../../../types/graphql-utils';
+import { ResolverMap } from '../../../../customTypeScriptTypes/graphql-utils';
 
 export const resolvers: ResolverMap = {
   Query: {

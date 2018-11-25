@@ -16,6 +16,7 @@ export default async function updateProfile(
   isDarkTheme: boolean | undefined,
   isMyTheme: boolean | undefined,
   isMyTypeStyles: boolean | undefined,
+  addToHistory: boolean | undefined,
   context: Context,
 ) {
   try {
@@ -51,6 +52,7 @@ export default async function updateProfile(
       isDarkTheme,
       isMyTheme,
       isMyTypeStyles,
+      addToHistory,
     };
 
     const profileCleaned = [

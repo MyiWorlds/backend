@@ -1,6 +1,6 @@
 import createDocument from '../../../../services/firebase/firestore/mutations/createDocument';
 import { getDocumentById } from '../../../../services/firebase/firestore/queries';
-import { ResolverMap } from '../../../../types/graphql-utils';
+import { ResolverMap } from '../../../../customTypeScriptTypes/graphql-utils';
 
 export const resolvers: ResolverMap = {
   Mutation: {
