@@ -8,6 +8,7 @@ export default async function getDocumentsByIds(
   collection: string,
   ids: string[],
   context: Context,
+  addToHistoryOverride?: boolean,
 ) {
   console.time('getDocumentsByIds TTC: ');
   let response: any[] = [];
@@ -24,7 +25,7 @@ export default async function getDocumentsByIds(
           return circles2.map((cir: any) => cir.data());
         });
 
-      if (context.addToHistory) {
+      const createAndAddToHistory = () => {
         const circle = {
           type: 'VIEWED_BY_IDS',
           settings: {
@@ -34,6 +35,14 @@ export default async function getDocumentsByIds(
         };
 
         addToProfileHistory(circle, context);
+      };
+
+      if (addToHistoryOverride !== undefined) {
+        if (addToHistoryOverride) {
+          createAndAddToHistory();
+        }
+      } else if (context.addToHistory) {
+        createAndAddToHistory();
       }
 
       // Transform undefined into objects

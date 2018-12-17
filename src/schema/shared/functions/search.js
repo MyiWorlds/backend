@@ -1,8 +1,8 @@
 import getEntitiesAndRemoveInvalid from './getEntitiesAndRemoveInvalid';
 
-const hasFetchedEnough = (circle, requestedNumberOfResults) => {
+const hasFetchedEnough = (circle, numberOfResults) => {
   return (
-    circle.lines.length < requestedNumberOfResults &&
+    circle.lines.length < numberOfResults &&
     circle.data.cursor.moreResults === 'MORE_RESULTS_AFTER_LIMIT'
   );
 };
@@ -12,7 +12,7 @@ export default async function search(
   icon,
   kind,
   filters,
-  requestedNumberOfResults,
+  numberOfResults,
   cursor,
   userUid,
 ) {
@@ -24,7 +24,7 @@ export default async function search(
     data: {
       kind,
       filters,
-      requestedNumberOfResults,
+      numberOfResults,
       cursor,
     },
     lines: [],
@@ -34,24 +34,24 @@ export default async function search(
     circle,
     kind,
     filters,
-    requestedNumberOfResults,
+    numberOfResults,
     cursor,
     userUid,
   );
 
-  const fetchMore = hasFetchedEnough(circle, requestedNumberOfResults);
+  const fetchMore = hasFetchedEnough(circle, numberOfResults);
   var numberOfRetries = 0;
 
   while (fetchMore && numberOfRetries < 3) {
     numberOfRetries++;
 
-    const amountToRefetch = requestedNumberOfResults - circle.lines.length;
+    const amountToRefetch = numberOfResults - circle.lines.length;
 
     circle = await getEntitiesAndRemoveInvalid(
       circle,
       kind,
       filters,
-      requestedNumberOfResults,
+      numberOfResults,
       circle.data.cursor.endCursor,
       userUid,
     );

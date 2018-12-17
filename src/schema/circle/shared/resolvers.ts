@@ -46,17 +46,24 @@ export const resolvers: ResolverMap = {
       }
     },
     viewers: async (circle: any, _: null, context: Context) => {
-      if (circle.viewers.length) {
+      if (circle.viewers) {
         return context.profileLoader.loadMany(circle.viewers);
       } else {
         return [];
       }
     },
     editors: async (circle: any, _: null, context: Context) => {
-      if (circle.editors.length) {
+      if (circle.editors) {
         return context.profileLoader.loadMany(circle.editors);
       } else {
         return [];
+      }
+    },
+    line: async (circle: any, _: null, context: Context) => {
+      if (circle.line) {
+        return context.circleLoader.load(circle.line);
+      } else {
+        return null;
       }
     },
     lines: async (circle: any, _: null, context: Context) => {

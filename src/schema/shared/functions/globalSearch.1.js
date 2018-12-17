@@ -1,9 +1,9 @@
 import getEntitiesAndRemoveInvalid from './getEntitiesAndRemoveInvalid';
 import search from './search';
 
-const hasFetchedEnough = (circle, requestedNumberOfResults) => {
+const hasFetchedEnough = (circle, numberOfResults) => {
   return (
-    circle.lines.length < requestedNumberOfResults &&
+    circle.lines.length < numberOfResults &&
     circle.data.cursor.moreResults === 'MORE_RESULTS_AFTER_LIMIT'
   );
 };
@@ -13,7 +13,7 @@ const searchEntities = async (
   icon,
   kind,
   filters,
-  requestedNumberOfResults,
+  numberOfResults,
   cursor,
   userUid,
   circle,
@@ -28,7 +28,7 @@ const searchEntities = async (
       icon,
       kind,
       userViewableFilters,
-      requestedNumberOfResults,
+      numberOfResults,
       cursor,
       userUid,
     ),
@@ -42,7 +42,7 @@ export default async function globalSearch(
   getAllResults,
   kind,
   filters,
-  requestedNumberOfResults,
+  numberOfResults,
   cursor,
   userUid,
 ) {
@@ -53,7 +53,7 @@ export default async function globalSearch(
     data: {
       kind,
       filters,
-      requestedNumberOfResults,
+      numberOfResults,
       cursor,
     },
     lines: [],
@@ -66,7 +66,7 @@ export default async function globalSearch(
         'account_circle',
         kind,
         filters,
-        requestedNumberOfResults,
+        numberOfResults,
         cursor,
         userUid,
         circle,
@@ -86,7 +86,7 @@ export default async function globalSearch(
         'remove_red_eye',
         kind,
         filters,
-        requestedNumberOfResults,
+        numberOfResults,
         cursor,
         userUid,
         circle,
@@ -106,7 +106,7 @@ export default async function globalSearch(
         'edit',
         kind,
         filters,
-        requestedNumberOfResults,
+        numberOfResults,
         cursor,
         userUid,
         circle,
@@ -127,7 +127,7 @@ export default async function globalSearch(
       'public',
       kind,
       filters,
-      requestedNumberOfResults,
+      numberOfResults,
       cursor,
       userUid,
       circle,

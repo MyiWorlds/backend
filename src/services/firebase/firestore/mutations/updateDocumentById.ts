@@ -68,9 +68,7 @@ export default async function updateDocumentById(
         ) {
           cloneToNewDocument(doc);
 
-          if (!updatedDocument.dateUpdated) {
-            updatedDocument.dateUpdated = Date.now();
-          }
+          updatedDocument.dateUpdated = Date.now();
 
           await firestore
             .collection(updatedDocument.collection)
@@ -94,7 +92,12 @@ export default async function updateDocumentById(
         }
       });
 
-    if (addToHistory || (context.addToHistory && addToHistory === undefined)) {
+    if (
+      addToHistory ||
+      (context.addToHistory &&
+        addToHistory === undefined &&
+        addToHistory !== false)
+    ) {
       const circle = {
         type: 'UPDATED',
         settings: {

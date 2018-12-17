@@ -26,14 +26,16 @@ export default async function getDocumentById(
       } else if (userCanView(document, context)) {
         response = document;
       } else {
-        response.type = 'PERMISSION_DENIED';
-        response.collection = collection;
+        response = {
+          type: 'PERMISSION_DENIED',
+          collection,
+        };
         response = defaultCircleSwitch(response, context);
       }
 
       if (context.addToHistory) {
         const circle = {
-          type: 'UPDATED',
+          type: 'VIEWED',
           settings: {
             id: response.id,
             collection: response.collection,

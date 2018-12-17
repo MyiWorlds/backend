@@ -23,8 +23,9 @@ column: number;
 interface IQuery {
 __typename: "Query";
 getCircleById: ICircle | null;
+getCircleByProfileUsername: ICircle | null;
 getCirclesByFilters: ICircle | null;
-getCirclesByIds: Array<ICircle> | null;
+getCirclesByIds: Array<ICircle | null> | null;
 getProfileByUsername: IGetProfileByUsernameResponse | null;
 getUsersProfileById: IProfile | null;
 user: IUser | null;
@@ -32,6 +33,10 @@ user: IUser | null;
 
 interface IGetCircleByIdOnQueryArguments {
 id: string;
+}
+
+interface IGetCircleByProfileUsernameOnQueryArguments {
+username: string;
 }
 
 interface IGetCirclesByFiltersOnQueryArguments {
@@ -42,7 +47,7 @@ numberOfResults?: number | null;
 }
 
 interface IGetCirclesByIdsOnQueryArguments {
-ids: Array<string>;
+ids: Array<string | null>;
 }
 
 interface IGetProfileByUsernameOnQueryArguments {
@@ -66,7 +71,7 @@ type: string | null;
 settings: any | null;
 styles: ICircle | null;
 rating: ICircle | null;
-tags: Array<string> | null;
+tags: Array<string | null> | null;
 title: string | null;
 subtitle: string | null;
 description: string | null;
@@ -74,8 +79,8 @@ media: ICircle | null;
 icon: string | null;
 creator: IProfile | null;
 owner: IProfile | null;
-viewers: Array<IProfile> | null;
-editors: Array<IProfile> | null;
+viewers: Array<IProfile | null> | null;
+editors: Array<IProfile | null> | null;
 dateCreated: any | null;
 dateUpdated: any | null;
 string: string | null;
@@ -85,7 +90,8 @@ bigNumber: any | null;
 boolean: boolean | null;
 date: any | null;
 geoPoint: any | null;
-lines: Array<ICircle> | null;
+line: ICircle | null;
+lines: Array<ICircle | null> | null;
 }
 
 interface IProfile {
@@ -134,7 +140,7 @@ allMyTypeStyles: ICircle | null;
 inbox: ICircle | null;
 search: ICircle | null;
 selectedProfile: IProfile | null;
-profiles: Array<IProfile> | null;
+profiles: Array<IProfile | null> | null;
 }
 
 interface IMutation {
@@ -157,7 +163,7 @@ type: string;
 settings?: any | null;
 styles?: string | null;
 rating?: string | null;
-tags?: Array<string> | null;
+tags?: Array<string | null> | null;
 title?: string | null;
 subtitle?: string | null;
 description?: string | null;
@@ -165,8 +171,8 @@ media?: string | null;
 icon?: string | null;
 creator: string;
 owner?: string | null;
-viewers?: Array<string> | null;
-editors?: Array<string> | null;
+viewers?: Array<string | null> | null;
+editors?: Array<string | null> | null;
 dateCreated?: any | null;
 dateUpdated?: any | null;
 string?: string | null;
@@ -176,7 +182,7 @@ bigNumber?: any | null;
 boolean?: boolean | null;
 date?: any | null;
 geoPoint?: any | null;
-lines?: Array<string> | null;
+lines?: Array<string | null> | null;
 }
 
 interface ICreateProfileOnMutationArguments {

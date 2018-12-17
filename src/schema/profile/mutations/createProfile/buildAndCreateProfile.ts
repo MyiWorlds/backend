@@ -137,17 +137,32 @@ export default async function buildAndCreateProfile(
       context,
     );
 
+    const historyRef = firestore.collection('circles').doc();
+    const historyId = historyRef.id;
+
     const history = await createDocument(
       {
+        id: historyId,
         public: true,
         collection: 'circles',
-        type: 'LINES',
+        type: 'GET_CIRCLES_BY_FILTERS',
+        settings: {
+          cursor: null,
+          filters: [
+            {
+              condition: '==',
+              property: 'parent',
+              value: historyId,
+            },
+          ],
+          numberOfResults: 12,
+          orderBy: 'dateUpdated',
+        },
         creator: 'APP',
         editors: [id],
         title: 'My History',
         description:
           'The history of what I have done on the platform.  This can be turned on/off through the profile controls.',
-        lines: [],
       },
       context,
     );

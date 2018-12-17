@@ -29,5 +29,6 @@ type Circle {
   boolean: Boolean
   date: BigInt
   geoPoint: JSON
+  line: Circle
   lines: [Circle]
 }

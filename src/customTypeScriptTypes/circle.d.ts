@@ -7,7 +7,7 @@ interface Filter {
 interface GetDocumentsByFilters {
   filters: Filter;
   orderBy: string;
-  requestedNumberOfResults: number;
+  numberOfResults: number;
 }
 
 interface GetDocumentsByIds {
@@ -22,6 +22,8 @@ interface GetDocumentById {
 
 interface Circle {
   id?: string | null;
+  cached?: boolean;
+  cache?: any;
   collection?: string | null;
   pii?: boolean | null;
   parent?: string | null;
@@ -56,5 +58,6 @@ interface Circle {
   boolean?: boolean | null;
   date?: any | null;
   geoPoint?: any | null;
+  line?: string | null;
   lines?: string[] | null;
 }

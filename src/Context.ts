@@ -47,10 +47,10 @@ const Context = async (req: any) => {
   const context = {
     ...headers,
     circleLoader: new DataLoader(async (keys: string[]) =>
-      getDocumentsByIds('circles', keys, headers),
+      getDocumentsByIds('circles', keys, headers, false),
     ),
     profileLoader: new DataLoader(async (keys: string[]) =>
-      getDocumentsByIds('profiles', keys, headers),
+      getDocumentsByIds('profiles', keys, headers, false),
     ),
   };
 
@@ -58,4 +58,3 @@ const Context = async (req: any) => {
 };
 
 export default Context;
-

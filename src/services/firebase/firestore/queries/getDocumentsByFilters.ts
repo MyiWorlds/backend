@@ -31,7 +31,7 @@ export default async function getDocumentsByFilters(
   pageCursor: string | null,
   context: Context,
 ) {
-  console.time('getDocumentsByFilters time to complete');
+  console.time('getDocumentsByFilters TTC');
 
   if (numberOfResults > 100) {
     numberOfResults = 100;
@@ -59,12 +59,13 @@ export default async function getDocumentsByFilters(
     }
 
     if (pageCursor) {
+      // Need to update this to pass in value for sort order
       query = query
-        .orderBy(orderBy)
+        .orderBy(orderBy, 'desc')
         .startAfter(pageCursor)
         .limit(numberOfResults);
     } else {
-      query = query.orderBy(orderBy).limit(numberOfResults);
+      query = query.orderBy(orderBy, 'desc').limit(numberOfResults);
     }
 
     query = await query.get().then((results: any) => {
@@ -92,6 +93,6 @@ export default async function getDocumentsByFilters(
     stackdriver.report(error);
     response.lines = [];
   }
-  console.time('getDocumentsByFilters time to complete');
+  console.timeEnd('getDocumentsByFilters TTC');
   return response;
 }

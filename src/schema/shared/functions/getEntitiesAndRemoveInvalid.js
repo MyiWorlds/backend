@@ -1,14 +1,14 @@
 import { getEntities } from "../../../gcp/datastore/queries";
 import removeAllInvalid from "./removeAllInvalid";
 
-const hasFetchedEnough = (circle, requestedNumberOfResults) => {
+const hasFetchedEnough = (circle, numberOfResults) => {
   return circle.lines.length <
-    requestedNumberOfResults &&
+    numberOfResults &&
     circle.settings.cursor.moreResults === 'MORE_RESULTS_AFTER_LIMIT'
 };
 
-const getData = async (kind, searchConditions, requestedNumberOfResults, cursor, userUid) => {
-  const circle = await getEntities(kind, searchConditions, requestedNumberOfResults, cursor, userUid);
+const getData = async (kind, searchConditions, numberOfResults, cursor, userUid) => {
+  const circle = await getEntities(kind, searchConditions, numberOfResults, cursor, userUid);
 
   return circle;
 }
@@ -22,7 +22,7 @@ export default async function getEntitiesAndRemoveInvalid(
   const query = await getData(
     circle.settings.kind,
     circle.settings.filters.searchConditions,
-    circle.settings.requestedNumberOfResults,
+    circle.settings.numberOfResults,
     cursor,
     userUid,
   );
@@ -32,13 +32,13 @@ export default async function getEntitiesAndRemoveInvalid(
   circle.lines = circle.lines ? circle.lines.concat(resultsFiltered) : resultsFiltered;
   circle.settings.cursor = query.cursor;
 
-  const fetchMore = hasFetchedEnough(circle, circle.settings.requestedNumberOfResults);
+  const fetchMore = hasFetchedEnough(circle, circle.settings.numberOfResults);
   let numberOfRetries = 0
 
   while(fetchMore && numberOfRetries < 3) {
     numberOfRetries++
 
-      const amountToRefetch = requestedNumberOfResults - circle.lines.length;
+      const amountToRefetch = numberOfResults - circle.lines.length;
 
       const getMoreData = await getData(
         circle.settings.kind,
