@@ -15,7 +15,10 @@ export const resolvers: ResolverMap = {
       args: {
         numberOfResults: number;
         filters: Filter[];
-        orderBy: string;
+        orderBy: {
+          property: string;
+          ascending: boolean;
+        };
         cursor: any | null;
       },
       context: Context,

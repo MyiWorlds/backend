@@ -6,7 +6,10 @@ interface Filter {
 
 interface GetDocumentsByFilters {
   filters: Filter;
-  orderBy: string;
+  orderBy: {
+    property: string;
+    ascending: boolean;
+  };
   numberOfResults: number;
 }
 

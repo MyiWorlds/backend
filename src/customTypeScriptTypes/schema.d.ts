@@ -41,7 +41,7 @@ username: string;
 
 interface IGetCirclesByFiltersOnQueryArguments {
 filters?: any | null;
-orderBy: string;
+orderBy: any;
 cursor?: any | null;
 numberOfResults?: number | null;
 }

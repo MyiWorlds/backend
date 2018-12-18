@@ -156,7 +156,10 @@ export default async function buildAndCreateProfile(
             },
           ],
           numberOfResults: 12,
-          orderBy: 'dateUpdated',
+          orderBy: {
+            property: 'dateCreated',
+            ascending: false,
+          },
         },
         creator: 'APP',
         editors: [id],

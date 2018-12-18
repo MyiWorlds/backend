@@ -60,7 +60,7 @@ export default async function deleteDocument(
         await firestore
           .collection(`${collection}-clones`)
           .where(`${collection}Id`, '==', id)
-          .orderBy('dateCreated')
+          .orderBy('dateCreated', 'desc')
           .startAfter(cursor)
           .limit(1)
           .get()

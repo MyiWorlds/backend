@@ -11,12 +11,17 @@ interface Filter {
   value: string | number | boolean;
 }
 
+interface OrderBy {
+  property: string;
+  ascending: boolean;
+}
+
 interface Response {
   type: string;
   settings: {
     collection: string;
     filters: Filter[];
-    orderBy: string;
+    orderBy: OrderBy;
     numberOfResults: number;
     cursor: any | null;
   };
@@ -26,7 +31,7 @@ interface Response {
 export default async function getDocumentsByFilters(
   collection: string,
   filters: Filter[],
-  orderBy: string,
+  orderBy: OrderBy,
   numberOfResults: number,
   pageCursor: string | null,
   context: Context,
@@ -61,11 +66,13 @@ export default async function getDocumentsByFilters(
     if (pageCursor) {
       // Need to update this to pass in value for sort order
       query = query
-        .orderBy(orderBy, 'desc')
+        .orderBy(orderBy.property, orderBy.ascending ? 'asc' : 'desc')
         .startAfter(pageCursor)
         .limit(numberOfResults);
     } else {
-      query = query.orderBy(orderBy, 'desc').limit(numberOfResults);
+      query = query
+        .orderBy(orderBy.property, orderBy.ascending ? 'asc' : 'desc')
+        .limit(numberOfResults);
     }
 
     query = await query.get().then((results: any) => {
@@ -84,7 +91,7 @@ export default async function getDocumentsByFilters(
         return result;
       });
 
-      const lastItemFetched = data[data.length - 1][orderBy];
+      const lastItemFetched = data[data.length - 1][orderBy.property];
       response.settings.cursor = lastItemFetched;
 
       return response;
