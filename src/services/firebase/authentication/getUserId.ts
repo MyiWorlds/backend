@@ -1,4 +1,5 @@
 import firebase from '..';
+import stackdriver from '../../stackdriver';
 
 const getUserId = async (token: string) => {
   if (token && token !== 'null') {
@@ -10,7 +11,7 @@ const getUserId = async (token: string) => {
         return id;
       })
       .catch((error: any) => {
-        console.log(error);
+        stackdriver.report(error);
 
         return null;
       });
