@@ -1,3 +1,6 @@
+// If you update this function to add more items
+// you must update the ProfileUsernameEditor Component
+// description to the user
 export const isAllowedUsername = (username: string) => {
   const bannedUsernames = [
     '',
@@ -11,7 +14,7 @@ export const isAllowedUsername = (username: string) => {
     'admins',
   ];
   const notBannedUsername = !bannedUsernames.includes(username);
-  const bannedSymbols = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+  const bannedSymbols = /[!@#$%^&*()+\=\[\]{};':"\\|,.<>\/?]+/;
 
   const isLongEnough = username.length > 3;
   const doesNotContainBannedCharacters =
