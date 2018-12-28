@@ -21,7 +21,7 @@ export default async function updateProfile(
 ) {
   try {
     if (username) {
-      username = username.toLocaleLowerCase();
+      username = username.toLowerCase();
 
       if (!isAllowedUsername(username)) {
         const response: Response = {

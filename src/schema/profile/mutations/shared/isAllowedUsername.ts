@@ -14,17 +14,15 @@ export const isAllowedUsername = (username: string) => {
     'admins',
   ];
   const notBannedUsername = !bannedUsernames.includes(username);
-  const bannedSymbols = /[!@#$%^&*()+\=\[\]{};':"\\|,.<>\/?]+/;
 
   const isLongEnough = username.length > 3;
-  const doesNotContainBannedCharacters =
-    !username.includes('/') || !username.includes('\\');
-  const doesNotContainBannedSymbols = !bannedSymbols.test(username);
+  const isShortEnough = username.length < 120;
+  const isOnlyAllowedCharacters = username.match(/^[-_a-z0-9]+$/);
 
   return (
     notBannedUsername &&
     isLongEnough &&
-    doesNotContainBannedCharacters &&
-    doesNotContainBannedSymbols
+    isShortEnough &&
+    isOnlyAllowedCharacters
   );
 };

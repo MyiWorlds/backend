@@ -11,7 +11,7 @@ interface Response {
 export const resolvers: ResolverMap = {
   Query: {
     getProfileByUsername: async (_: null, args: { username: string }) => {
-      const username = args.username.toLocaleLowerCase();
+      const username = args.username.toLowerCase();
 
       if (!isAllowedUsername(username)) {
         const response: Response = {

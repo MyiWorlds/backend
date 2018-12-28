@@ -7,8 +7,7 @@ import { isAllowedUsername } from '../shared/isAllowedUsername';
 interface Response {
   status: string;
   message: string;
-  updatedDocumentId: string | null;
-  contextProfileId: string;
+  createdDocumentId: string | null;
 }
 
 // This should be in a cloud function
@@ -16,32 +15,54 @@ export default async function buildAndCreateProfile(
   username: string,
   context: Context,
 ) {
-  username = username.toLocaleLowerCase();
+  username = username.toLowerCase();
 
   if (!isAllowedUsername(username)) {
-    const response: Response = {
+    const isNotAllowedUsernameResponse: Response = {
       status: 'DENIED',
       message:
         'I am sorry, I can not let you use that username.  Please try another',
-      updatedDocumentId: null,
-      contextProfileId: context.selectedProfileId,
+      createdDocumentId: null,
     };
-    return response;
+    return isNotAllowedUsernameResponse;
   }
 
   try {
     if (await isUsernameTaken(username)) {
-      const response: Response = {
+      const usernameTakenResponse: Response = {
         status: 'DENIED',
         message: 'I am sorry, that username is already taken',
-        updatedDocumentId: null,
-        contextProfileId: context.selectedProfileId,
+        createdDocumentId: null,
       };
-      return response;
+      return usernameTakenResponse;
     }
 
     const profileRef = firestore.collection('profiles').doc();
-    const id = profileRef.id;
+
+    const profile = {
+      id: profileRef.id,
+      collection: 'profiles',
+      public: true,
+      username,
+      canCreate: true,
+      isDarkTheme: true,
+      isMyTypeStyles: false,
+      isMyTheme: false,
+      addToHistory: true,
+      dateCreated: Date.now(),
+      dateUpdated: Date.now(),
+    };
+
+    // I must create username outside of create document and share the logic
+    // Because it requires profile username which could not be on a user yet
+    // if they have no profiles/logged into that profile atm
+    await firestore
+      .collection(profile.collection)
+      .doc(profile.id)
+      .set(profile);
+
+    // Use the newly created profileId as the profile that creates the following
+    context.selectedProfileId = profile.id;
 
     const level = await createDocument(
       {
@@ -49,7 +70,7 @@ export default async function buildAndCreateProfile(
         collection: 'circles',
         type: 'LINES',
         creator: 'APP',
-        editors: [id],
+        editors: [profile.id],
         data: {},
       },
       context,
@@ -60,7 +81,7 @@ export default async function buildAndCreateProfile(
         collection: 'circles',
         type: 'LINES_TOTALED',
         creator: 'APP',
-        editors: [id],
+        editors: [profile.id],
         lines: [],
       },
       context,
@@ -71,7 +92,7 @@ export default async function buildAndCreateProfile(
         collection: 'circles',
         type: 'LINES',
         creator: 'APP',
-        editors: [id],
+        editors: [profile.id],
         lines: [],
       },
       context,
@@ -85,7 +106,7 @@ export default async function buildAndCreateProfile(
           'The theme that this profile uses to interact with the application.',
         type: 'DATA',
         creator: 'APP',
-        editors: [id],
+        editors: [profile.id],
         data: {
           palette: {
             primary: {
@@ -106,7 +127,7 @@ export default async function buildAndCreateProfile(
         collection: 'circles',
         type: 'LINES',
         creator: 'APP',
-        editors: [id],
+        editors: [profile.id],
         lines: [],
       },
       context,
@@ -119,7 +140,7 @@ export default async function buildAndCreateProfile(
         collection: 'circles',
         type: 'LINES',
         creator: 'APP',
-        editors: [id],
+        editors: [profile.id],
         lines: [],
       },
       context,
@@ -131,7 +152,7 @@ export default async function buildAndCreateProfile(
         collection: 'circles',
         type: 'LINES',
         creator: 'APP',
-        editors: [id],
+        editors: [profile.id],
         lines: [],
       },
       context,
@@ -162,7 +183,7 @@ export default async function buildAndCreateProfile(
           },
         },
         creator: 'APP',
-        editors: [id],
+        editors: [profile.id],
         title: 'My History',
         description:
           'The history of what I have done on the platform.  This can be turned on/off through the profile controls.',
@@ -170,19 +191,13 @@ export default async function buildAndCreateProfile(
       context,
     );
 
-    const profile = {
-      id,
+    const updatedProfile = {
+      id: profile.id,
       collection: 'profiles',
-      public: true,
-      username,
-      canCreate: true,
       profileMedia: '',
       level: level.createdDocumentId,
       rating: rating.createdDocumentId,
-      isDarkTheme: true,
-      isMyTypeStyles: false,
       myTypeStyles: myTypeStyles.createdDocumentId,
-      isMyTheme: false,
       myTheme: myTheme.createdDocumentId,
       homePublic: homePublic.createdDocumentId,
       home: home.createdDocumentId,
@@ -190,26 +205,31 @@ export default async function buildAndCreateProfile(
       history: history.createdDocumentId,
     };
 
-    const createProfile = await createDocument(profile, context);
+    await updateDocumentById(updatedProfile, context, true, false);
 
-    const getUser = await firestore
+    const user = await firestore
       .collection('users')
       .doc(context.userId)
       .get()
       .then((res: any) => res.data());
 
-    const user = {
+    const updatedUser = {
       id: context.userId,
       collection: 'users',
       profiles:
-        getUser.profiles && getUser.profiles.length
-          ? [...getUser.profiles, createProfile.createdDocumentId]
-          : [createProfile.createdDocumentId],
+        user.profiles && user.profiles.length
+          ? [...user.profiles, profile.id]
+          : [profile.id],
     };
 
-    await updateDocumentById(user, context, true);
+    await updateDocumentById(updatedUser, context, true);
 
-    return createProfile;
+    const response: Response = {
+      status: 'SUCCESS',
+      message: 'I created that profile for you',
+      createdDocumentId: profile.id,
+    };
+    return response;
   } catch (error) {
     throw error;
   }

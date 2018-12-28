@@ -1,4 +1,5 @@
 import updateProfile from './updateProfile';
+import { getDocumentById } from '../../../../services/firebase/firestore/queries';
 import { ResolverMap } from '../../../../customTypeScriptTypes/graphql-utils';
 
 export const resolvers: ResolverMap = {
@@ -20,5 +21,9 @@ export const resolvers: ResolverMap = {
         args.data.addToHistory,
         context,
       ),
+  },
+  UpdateProfileResponse: {
+    updatedProfile: async (response: any, _: null, context: Context) =>
+      getDocumentById('profiles', response.updatedDocumentId, context),
   },
 };
