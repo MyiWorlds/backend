@@ -1,11 +1,15 @@
-interface Filter {
+interface IFilter {
   property: string;
   condition: string;
-  value: string | number | boolean | Date | null;
+  value: any;
 }
 
-interface GetDocumentsByFilters {
-  filters: Filter;
+/**
+ * @param selectFields by default will return all fields
+ */
+interface IGetDocumentsByFilters {
+  filters: IFilter;
+  selectFields: string[];
   orderBy: {
     property: string;
     ascending: boolean;
@@ -13,12 +17,12 @@ interface GetDocumentsByFilters {
   numberOfResults: number;
 }
 
-interface GetDocumentsByIds {
+interface IGetDocumentsByIds {
   collection: string;
   ids: string[];
 }
 
-interface GetDocumentById {
+interface IGetDocumentById {
   id: string;
   collection: string;
 }

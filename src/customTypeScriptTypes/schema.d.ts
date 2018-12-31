@@ -41,6 +41,7 @@ username: string;
 
 interface IGetCirclesByFiltersOnQueryArguments {
 filters?: any | null;
+selectFields?: Array<string | null> | null;
 orderBy: any;
 cursor?: any | null;
 numberOfResults?: number | null;
@@ -147,6 +148,7 @@ interface IMutation {
 __typename: "Mutation";
 createCircle: ICreateCircleResponse | null;
 createProfile: ICreateProfileResponse | null;
+deleteProfile: IDeleteProfileResponse | null;
 updateProfile: IUpdateProfileResponse | null;
 createUser: ICreateUserResponse | null;
 }
@@ -189,6 +191,10 @@ interface ICreateProfileOnMutationArguments {
 username: string;
 }
 
+interface IDeleteProfileOnMutationArguments {
+id: string;
+}
+
 interface IUpdateProfileOnMutationArguments {
 id: string;
 data?: any | null;
@@ -212,6 +218,16 @@ __typename: "CreateProfileResponse";
 status: string | null;
 message: string | null;
 createdProfile: IProfile | null;
+}
+
+interface IDeleteProfileResponse {
+__typename: "DeleteProfileResponse";
+status: string | null;
+message: string | null;
+idToDelete: string | null;
+wasDeleted: boolean | null;
+numberOfClones: number | null;
+clonesDeleted: boolean | null;
 }
 
 interface IUpdateProfileResponse {

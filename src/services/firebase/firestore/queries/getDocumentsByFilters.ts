@@ -3,14 +3,6 @@ import stackdriver from '../../../stackdriver';
 import { defaultCircleSwitch } from './../functions/defaultCircleSwitch';
 import { userCanView } from '../rules';
 
-//  Need to update how I handle the property that it is sorted on (searched on) to be dynamic
-// Make it so I can use this same function to navigate forwards as well based on prop
-interface Filter {
-  property: string;
-  condition: string;
-  value: string | number | boolean;
-}
-
 interface OrderBy {
   property: string;
   ascending: boolean;
@@ -20,7 +12,8 @@ interface Response {
   type: string;
   settings: {
     collection: string;
-    filters: Filter[];
+    filters: IFilter[];
+    selectFields: string[];
     orderBy: OrderBy;
     numberOfResults: number;
     cursor: any | null;
@@ -30,7 +23,8 @@ interface Response {
 
 export default async function getDocumentsByFilters(
   collection: string,
-  filters: Filter[],
+  filters: IFilter[],
+  selectFields: string[],
   orderBy: OrderBy,
   numberOfResults: number,
   pageCursor: string | null,
@@ -47,6 +41,7 @@ export default async function getDocumentsByFilters(
     settings: {
       collection,
       filters,
+      selectFields,
       orderBy,
       numberOfResults,
       cursor: pageCursor || null,
@@ -61,6 +56,10 @@ export default async function getDocumentsByFilters(
       filters.forEach(filter => {
         query = query.where(filter.property, filter.condition, filter.value);
       });
+    }
+
+    if (selectFields.length) {
+      query = query.select(selectFields.join());
     }
 
     if (pageCursor) {

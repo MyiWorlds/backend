@@ -12,9 +12,9 @@ interface Circle {
   settings?:
     | any
     | null
-    | GetDocumentsByFilters
-    | GetDocumentById
-    | GetDocumentsByIds;
+    | IGetDocumentsByFilters
+    | IGetDocumentById
+    | IGetDocumentsByIds;
   styles?: string | null;
   rating?: string | null;
   tags?: string[] | null;
@@ -23,10 +23,10 @@ interface Circle {
   description?: string | null;
   media?: string | null;
   icon?: string | null;
-  creator?: String | null;
-  owner?: String | null;
-  viewers?: Array<String> | null;
-  editors?: Array<String> | null;
+  creator?: string | null;
+  owner?: string | null;
+  viewers?: string[] | null;
+  editors?: string[] | null;
   dateCreated?: any | null;
   dateUpdated?: any | null;
   string?: string | null;

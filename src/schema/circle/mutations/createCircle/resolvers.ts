@@ -1,4 +1,4 @@
-import createDocument from '../../../../services/firebase/firestore/mutations/createDocument';
+import createCircle from './createCircle';
 import { getDocumentById } from '../../../../services/firebase/firestore/queries';
 import { ResolverMap } from '../../../../customTypeScriptTypes/graphql-utils';
 
@@ -40,7 +40,7 @@ export const resolvers: ResolverMap = {
       },
       context: Context,
     ) => {
-      return createDocument(args, context);
+      return createCircle(args, context);
     },
   },
   CreateCircleResponse: {

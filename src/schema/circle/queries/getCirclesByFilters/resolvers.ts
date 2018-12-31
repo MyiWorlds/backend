@@ -2,19 +2,14 @@ import getDocumentsByFilters from '../../../../services/firebase/firestore/queri
 import stackdriver from '../../../../services/stackdriver';
 import { ResolverMap } from '../../../../customTypeScriptTypes/graphql-utils';
 
-interface Filter {
-  property: string;
-  condition: string;
-  value: any;
-}
-
 export const resolvers: ResolverMap = {
   Query: {
     getCirclesByFilters: async (
       _: null,
       args: {
         numberOfResults: number;
-        filters: Filter[];
+        filters: IFilter[];
+        selectFields: string[];
         orderBy: {
           property: string;
           ascending: boolean;
@@ -27,6 +22,7 @@ export const resolvers: ResolverMap = {
         return await getDocumentsByFilters(
           'circles',
           args.filters,
+          args.selectFields,
           args.orderBy,
           args.numberOfResults,
           args.cursor,
