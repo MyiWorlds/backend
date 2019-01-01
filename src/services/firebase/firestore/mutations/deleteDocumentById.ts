@@ -1,3 +1,4 @@
+import batchDeleteClonesAndDocument from '../functions/batchDeleteClonesAndDocument';
 import firestore from './../index';
 import stackdriver from './../../../stackdriver';
 import { isCreator, isRequestingUser } from './../rules';
@@ -53,76 +54,7 @@ export default async function deleteDocument(
       isCreator(documentExists.creator, context.selectedProfileId) ||
       isRequestingUser(documentExists.id, context.userId)
     ) {
-      let keepDeleting = true;
-      let cursor = null;
-
-      while (keepDeleting) {
-        await firestore
-          .collection(`${collection}-clones`)
-          .where(`${collection}Id`, '==', id)
-          .orderBy('dateCreated', 'desc')
-          .startAfter(cursor)
-          .limit(1)
-          .get()
-          .then((querySnapshot: any) => {
-            if (querySnapshot.empty) {
-              keepDeleting = false;
-              cursor = null;
-              return;
-            }
-
-            response.numberOfClones =
-              response.numberOfClones + querySnapshot.docs.length;
-
-            const batch = firestore.batch();
-
-            querySnapshot.docs.forEach((doc: any) => {
-              batch.delete(doc.ref);
-            });
-
-            return batch.commit();
-          })
-          .then((res: any) => {
-            console.log('Deleted all', res);
-          });
-
-        // delete clones
-
-        keepDeleting = true;
-        cursor = '';
-      }
-
-      if (response.numberOfClones) {
-        response.clonesDeleted = true;
-      }
-
-      // Delete the master
-      firestore
-        .collection(collection)
-        .doc(id)
-        .delete()
-        .then((res: any) => {
-          if (res.success) {
-            response = {
-              status: 'SUCCESS',
-              message: 'I successfully deleted that and its clones for you',
-              uidToDelete: id,
-              numberOfClones: response.numberOfClones,
-              clonesDeleted: response.clonesDeleted,
-              wasDeleted: true,
-            };
-          } else {
-            response = {
-              status: 'ERROR',
-              message:
-                'I had an error deleting that.  My function deleteDocument failed.',
-              uidToDelete: id,
-              numberOfClones: response.numberOfClones,
-              clonesDeleted: response.clonesDeleted,
-              wasDeleted: false,
-            };
-          }
-        });
+      response = await batchDeleteClonesAndDocument(collection, id);
     } else {
       response = {
         status: 'ERROR',

@@ -3,29 +3,11 @@ import stackdriver from '../../../stackdriver';
 import { defaultCircleSwitch } from './../functions/defaultCircleSwitch';
 import { userCanView } from '../rules';
 
-interface OrderBy {
-  property: string;
-  ascending: boolean;
-}
-
-interface Response {
-  type: string;
-  settings: {
-    collection: string;
-    filters: IFilter[];
-    selectFields: string[];
-    orderBy: OrderBy;
-    numberOfResults: number;
-    cursor: any | null;
-  };
-  lines: any[];
-}
-
 export default async function getDocumentsByFilters(
   collection: string,
   filters: IFilter[],
   selectFields: string[],
-  orderBy: OrderBy,
+  orderBy: IOrderBy,
   numberOfResults: number,
   pageCursor: string | null,
   context: Context,
@@ -36,7 +18,7 @@ export default async function getDocumentsByFilters(
     numberOfResults = 100;
   }
 
-  const response: Response = {
+  const response: IGetDocumentsByFiltersResponse = {
     type: 'QUERY',
     settings: {
       collection,

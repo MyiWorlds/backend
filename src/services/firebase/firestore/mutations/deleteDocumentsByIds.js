@@ -29,7 +29,7 @@ export default async function deleteDocuments(keys, contextUserUid) {
         [
           {
             property: `${item.kind}Uid`,
-            condition: '=',
+            condition: '==',
             value: item.name, // Key passes id in name property
           },
         ],

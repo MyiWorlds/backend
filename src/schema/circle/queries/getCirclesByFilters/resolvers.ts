@@ -10,10 +10,7 @@ export const resolvers: ResolverMap = {
         numberOfResults: number;
         filters: IFilter[];
         selectFields: string[];
-        orderBy: {
-          property: string;
-          ascending: boolean;
-        };
+        orderBy: IOrderBy;
         cursor: any | null;
       },
       context: Context,

@@ -224,10 +224,16 @@ interface IDeleteProfileResponse {
 __typename: "DeleteProfileResponse";
 status: string | null;
 message: string | null;
-idToDelete: string | null;
-wasDeleted: boolean | null;
-numberOfClones: number | null;
-clonesDeleted: boolean | null;
+profileIdToDelete: string | null;
+profileDeleted: boolean | null;
+numberOfPiiCircles: number | null;
+piiCirclesDeleted: boolean | null;
+numberOfPiiCircleClones: number | null;
+piiCircleClonesDeleted: boolean | null;
+numberOfAppCreatedCirclesForProfile: number | null;
+appCreatedCirclesForProfileDeleted: boolean | null;
+numberOfAppCreatedCircleClonesForProfile: number | null;
+appCreatedCircleClonesForProfileDeleted: boolean | null;
 }
 
 interface IUpdateProfileResponse {
