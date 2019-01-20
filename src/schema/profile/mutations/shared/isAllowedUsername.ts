@@ -12,6 +12,13 @@ export const isAllowedUsername = (username: string) => {
     'account',
     'accounts',
     'admins',
+    'props',
+    'state',
+    'context',
+    'selectedProfile',
+    'circles',
+    'profiles',
+    'users',
   ];
   const notBannedUsername = !bannedUsernames.includes(username);
 

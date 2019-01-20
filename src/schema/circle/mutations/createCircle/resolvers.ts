@@ -25,6 +25,7 @@ export const resolvers: ResolverMap = {
         media: string;
         icon: string;
         creator: string;
+        owner: string;
         users: [string];
         editors: [string];
         dateCreated: any;

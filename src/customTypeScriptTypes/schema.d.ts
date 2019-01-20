@@ -147,6 +147,7 @@ profiles: Array<IProfile | null> | null;
 interface IMutation {
 __typename: "Mutation";
 createCircle: ICreateCircleResponse | null;
+updateCircle: IUpdateCircleResponse | null;
 createProfile: ICreateProfileResponse | null;
 deleteProfile: IDeleteProfileResponse | null;
 updateProfile: IUpdateProfileResponse | null;
@@ -187,6 +188,11 @@ geoPoint?: any | null;
 lines?: Array<string | null> | null;
 }
 
+interface IUpdateCircleOnMutationArguments {
+circle: any;
+merge: boolean;
+}
+
 interface ICreateProfileOnMutationArguments {
 username: string;
 }
@@ -210,6 +216,14 @@ __typename: "CreateCircleResponse";
 status: string | null;
 message: string | null;
 createdCircle: ICircle | null;
+creator: IProfile | null;
+}
+
+interface IUpdateCircleResponse {
+__typename: "UpdateCircleResponse";
+status: string | null;
+message: string | null;
+updatedCircle: ICircle | null;
 creator: IProfile | null;
 }
 

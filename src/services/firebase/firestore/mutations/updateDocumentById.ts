@@ -8,6 +8,7 @@ interface Response {
   status: string;
   message: string;
   updatedDocumentId: string | null;
+  previousCloneId: string | null;
   contextProfileId: string;
 }
 
@@ -22,6 +23,7 @@ export default async function updateDocumentById(
     status: '',
     message: '',
     updatedDocumentId: null,
+    previousCloneId: null,
     contextProfileId: context.selectedProfileId,
   };
 
@@ -31,6 +33,7 @@ export default async function updateDocumentById(
       message:
         'Sorry, I was not given a unique id. I need to know what it is you wish for me to update. Please try again.',
       updatedDocumentId: null,
+      previousCloneId: null,
       contextProfileId: context.selectedProfileId,
     };
     return response;
@@ -42,6 +45,7 @@ export default async function updateDocumentById(
       message:
         'Sorry, I was not given a collection name. I have no idea where I would put this. Please add one.',
       updatedDocumentId: null,
+      previousCloneId: null,
       contextProfileId: context.selectedProfileId,
     };
     return response;
@@ -78,7 +82,8 @@ export default async function updateDocumentById(
           response = {
             status: 'SUCCESS',
             message: 'I successfully updated that for you.',
-            updatedDocumentId: doc.id,
+            updatedDocumentId: updatedDocument.id,
+            previousCloneId: doc.id,
             contextProfileId: context.selectedProfileId,
           };
         } else {
@@ -87,6 +92,7 @@ export default async function updateDocumentById(
             message:
               'Sorry, you must be the creator or an editor to update this.',
             updatedDocumentId: null,
+            previousCloneId: null,
             contextProfileId: context.selectedProfileId,
           };
         }
@@ -114,6 +120,7 @@ export default async function updateDocumentById(
       status: 'ERROR',
       message: 'Sorry, I had an error updating that.  Please try again.',
       updatedDocumentId: null,
+      previousCloneId: null,
       contextProfileId: context.selectedProfileId,
     };
   }

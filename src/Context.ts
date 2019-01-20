@@ -5,7 +5,7 @@ import { getDocumentsByIds } from './services/firebase/firestore/queries';
 
 const Context = async (req: any) => {
   const profileHistoryId =
-    req.headers['profile-history-id'] !== 'null' || ''
+    req.headers['profile-history-id'] !== 'null' || '' || 'guest'
       ? req.headers['profile-history-id']
       : null;
   const addToHistory = req.headers['add-to-history'] === 'true' ? true : false;
