@@ -173,7 +173,7 @@ export default async function buildAndCreateProfile(
         id: historyId,
         public: true,
         collection: 'circles',
-        type: 'GET_CIRCLES_BY_FILTERS',
+        type: 'GET_INTERFACED_CIRCLES_BY_FILTERS',
         settings: {
           cursor: null,
           filters: [

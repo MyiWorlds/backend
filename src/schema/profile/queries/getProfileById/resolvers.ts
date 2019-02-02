@@ -4,17 +4,13 @@ import { ResolverMap } from '../../../../customTypeScriptTypes/graphql-utils';
 
 export const resolvers: ResolverMap = {
   Query: {
-    getUsersProfileById: async (
-      _: null,
-      args: { id: string },
-      context: Context,
-    ) => {
+    getProfileById: async (_: null, args: { id: string }, context: Context) => {
       if (args.id !== 'null' && context.validated) {
         try {
-          const userDoc = await firestore.doc(`profiles/${args.id}`).get();
-          const user = userDoc.data();
+          const profileDoc = await firestore.doc(`profiles/${args.id}`).get();
+          const profile = profileDoc.data();
 
-          return user;
+          return profile;
         } catch (error) {
           stackdriver.report(error);
         }
