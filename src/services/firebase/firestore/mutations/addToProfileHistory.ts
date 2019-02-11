@@ -1,6 +1,7 @@
 import createDocument from './createDocument';
 import updateDocumentById from './updateDocumentById';
-import { defaultCircleSwitch } from '../functions/defaultCircleSwitch';
+import { Context } from '../../../../customTypeScriptTypes/context';
+import { defaultCircleSwitch } from '../functions';
 
 const addToProfileHistory = (circle: Circle, context: Context) => {
   if (context.profileHistoryId) {

@@ -20,6 +20,7 @@
     "deploy": "SET NODE_ENV=production && npm run build && gcloud app deploy",
     "build": "rimraf ./build && tsc && copyfiles -u 1 src/**/*.graphql build",
     "start": "node build/index.js",
+    "let-there-be-light": "ts-node ./src/services/firebase/firestore/seed/index.ts",
     "gen-schema-types": "nodemon -e graphql --exec ts-node src/scripts/createTypes.ts"
   },
   "dependencies": {

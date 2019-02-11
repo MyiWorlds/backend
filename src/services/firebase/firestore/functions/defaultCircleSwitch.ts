@@ -1,6 +1,6 @@
-// TODO: Rename to circleAssembler
+import { Context } from '../../../../customTypeScriptTypes/context';
 
-export const defaultCircleSwitch = (circle: Circle, context: Context) => {
+const defaultCircleSwitch = (circle: Circle, context: Context) => {
   const type = circle.type;
   const id = circle.id ? circle.id : null;
 
@@ -25,9 +25,9 @@ export const defaultCircleSwitch = (circle: Circle, context: Context) => {
           parent: context.profileHistoryId,
           collection: 'circles',
           type,
-          settings: {
-            id: circle.settings.id,
-            collection: circle.settings.collection,
+          data: {
+            id: circle.data.id,
+            collection: circle.data.collection,
           },
         };
         break;
@@ -40,9 +40,9 @@ export const defaultCircleSwitch = (circle: Circle, context: Context) => {
           parent: context.profileHistoryId,
           collection: 'circles',
           type,
-          settings: {
-            collection: circle.settings.collection,
-            ids: circle.settings.ids,
+          data: {
+            collection: circle.data.collection,
+            ids: circle.data.ids,
           },
         };
         break;
@@ -55,12 +55,12 @@ export const defaultCircleSwitch = (circle: Circle, context: Context) => {
           parent: context.profileHistoryId,
           collection: 'circles',
           type,
-          settings: {
-            collection: circle.settings.collection,
-            filters: circle.settings.filters,
-            orderBy: circle.settings.orderBy,
-            numberOfResults: circle.settings.numberOfResults,
-            pageCursor: circle.settings.pageCursor,
+          data: {
+            collection: circle.data.collection,
+            filters: circle.data.filters,
+            orderBy: circle.data.orderBy,
+            numberOfResults: circle.data.numberOfResults,
+            pageCursor: circle.data.pageCursor,
           },
         };
         break;
@@ -94,3 +94,5 @@ export const defaultCircleSwitch = (circle: Circle, context: Context) => {
     return circle;
   }
 };
+
+export default defaultCircleSwitch;

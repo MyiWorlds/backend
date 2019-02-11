@@ -1,6 +1,7 @@
 import firestore from './../index';
 import stackdriver from '../../../stackdriver';
-import { defaultCircleSwitch } from './../functions/defaultCircleSwitch';
+import { Context } from '../../../../customTypeScriptTypes/context';
+import { defaultCircleSwitch } from './../functions';
 import { userCanView } from '../rules';
 
 export default async function getDocumentsByFilters(
@@ -20,7 +21,7 @@ export default async function getDocumentsByFilters(
 
   const response: IGetDocumentsByFiltersResponse = {
     type: 'QUERY',
-    settings: {
+    data: {
       collection,
       filters,
       selectFields,
@@ -73,7 +74,7 @@ export default async function getDocumentsByFilters(
       });
 
       const lastItemFetched = data[data.length - 1][orderBy.property];
-      response.settings.cursor = lastItemFetched;
+      response.data.cursor = lastItemFetched;
 
       return response;
     });

@@ -1,5 +1,6 @@
 import stackdriver from '../../../stackdriver';
 import updateDocumentById from './updateDocumentById';
+import { Context } from '../../../../customTypeScriptTypes/context';
 
 const updateParent = (
   parentId: string,

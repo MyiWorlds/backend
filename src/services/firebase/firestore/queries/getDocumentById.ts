@@ -1,7 +1,8 @@
 import addToProfileHistory from '../mutations/addToProfileHistory';
 import firestore from '../';
 import stackdriver from '../../../stackdriver';
-import { defaultCircleSwitch } from '../functions/defaultCircleSwitch';
+import { Context } from '../../../../customTypeScriptTypes/context';
+import { defaultCircleSwitch } from '../functions';
 import { userCanView } from '../rules';
 
 export default async function getDocumentById(
@@ -36,7 +37,7 @@ export default async function getDocumentById(
       if (context.addToHistory) {
         const circle = {
           type: 'VIEWED',
-          settings: {
+          data: {
             id: response.id,
             collection: response.collection,
           },

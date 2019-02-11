@@ -1,7 +1,8 @@
 import firestore from './../../../../services/firebase/firestore/index';
 import stackdriver from '../../../../services/stackdriver';
-import updateDocumentById from '../../../../services/firebase/firestore/mutations/updateDocumentById';
+import { Context } from '../../../../customTypeScriptTypes/context';
 import { getDocumentsByFilters } from '../../../../services/firebase/firestore/queries';
+import { updateDocumentById } from '../../../../services/firebase/firestore/mutations';
 
 async function batchDelete(
   collection: string,
@@ -39,8 +40,8 @@ async function batchDelete(
       await batch.commit();
     }
 
-    if (getPiiCircles.settings.cursor) {
-      cursor = getPiiCircles.settings.cursor;
+    if (getPiiCircles.data.cursor) {
+      cursor = getPiiCircles.data.cursor;
     } else {
       cursor = null;
       keepDeleting = false;
@@ -55,10 +56,7 @@ async function batchDelete(
 }
 
 // This should be in a cloud function
-export default async function buildAndCreateProfile(
-  id: string,
-  context: Context,
-) {
+export default async function deleteProfile(id: string, context: Context) {
   const response: IDeleteProfileResponse = {
     status: '',
     message: '',

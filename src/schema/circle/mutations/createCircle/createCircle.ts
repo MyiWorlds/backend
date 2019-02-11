@@ -1,4 +1,5 @@
-import createDocument from '../../../../services/firebase/firestore/mutations/createDocument';
+import { Context } from '../../../../customTypeScriptTypes/context';
+import { createDocument } from '../../../../services/firebase/firestore/mutations';
 
 export default async function createCircle(
   documentToCreate: Circle,

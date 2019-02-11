@@ -1,5 +1,6 @@
-import firestore from '../../../../services/firebase/firestore';
-import stackdriver from '../../../../services/stackdriver';
+import createUser from './createUser';
+import { Context } from '../../../../customTypeScriptTypes/context';
+import { getDocumentById } from '../../../../services/firebase/firestore/queries';
 import { ResolverMap } from '../../../../customTypeScriptTypes/graphql-utils';
 
 export const resolvers: ResolverMap = {
@@ -10,30 +11,11 @@ export const resolvers: ResolverMap = {
         id: string;
         email: string;
       },
-    ) => {
-      try {
-        const user = {
-          id: args.id,
-          dateCreated: Date.now(),
-          dateUpdated: Date.now(),
-          email: args.email,
-        };
-
-        await firestore
-          .collection('users')
-          .doc(user.id)
-          .set(user);
-
-        const createUserResponse = {
-          status: 'SUCCESS',
-          createdUser: user.id,
-        };
-
-        return createUserResponse;
-      } catch (error) {
-        stackdriver.report(error);
-        return;
-      }
-    },
+      context: Context,
+    ) => createUser(args.id, args.email, context),
+  },
+  CreateUserResponse: {
+    createdUser: async (response: any, _: null, context: Context) =>
+      getDocumentById('users', response.createdDocumentId, context),
   },
 };

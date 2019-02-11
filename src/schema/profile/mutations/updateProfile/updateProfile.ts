@@ -1,6 +1,7 @@
 import isUsernameTaken from '../shared/isUsernameTaken';
-import updateDocumentById from '../../../../services/firebase/firestore/mutations/updateDocumentById';
+import { Context } from '../../../../customTypeScriptTypes/context';
 import { isAllowedUsername } from '../shared/isAllowedUsername';
+import { updateDocumentById } from '../../../../services/firebase/firestore/mutations';
 
 interface Response {
   status: string;

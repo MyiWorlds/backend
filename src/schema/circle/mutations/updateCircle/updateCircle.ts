@@ -1,4 +1,5 @@
-import updateDocumentById from '../../../../services/firebase/firestore/mutations/updateDocumentById';
+import { Context } from '../../../../customTypeScriptTypes/context';
+import { updateDocumentById } from '../../../../services/firebase/firestore/mutations';
 
 export default async function updateCircle(
   circle: Circle,

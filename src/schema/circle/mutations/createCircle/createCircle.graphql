@@ -8,8 +8,7 @@ type Mutation {
     public: Boolean
     passwordRequired: Boolean
     type: String!
-    settings: JSON
-    styles: String
+    settings: String
     rating: String
     tags: [String]
     title: String

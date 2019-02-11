@@ -1,6 +1,7 @@
 import addToProfileHistory from './addToProfileHistory';
 import firestore from '../../firestore/index';
 import stackdriver from './../../../stackdriver';
+import { Context } from '../../../../customTypeScriptTypes/context';
 
 interface Response {
   status: string;
@@ -67,7 +68,7 @@ export default async function createDocument(
     ) {
       const circle = {
         type: 'CREATED',
-        settings: {
+        data: {
           id: documentToCreate.id,
           collection: documentToCreate.collection,
         },

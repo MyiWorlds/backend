@@ -4,5 +4,6 @@ type Mutation {
 
 type CreateUserResponse {
   status: String
+  message: String
   createdUser: User
 }

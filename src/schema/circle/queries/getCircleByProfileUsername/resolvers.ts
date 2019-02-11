@@ -1,6 +1,7 @@
 import firestore from '../../../../services/firebase/firestore';
 import stackdriver from '../../../../services/stackdriver';
-import { defaultCircleSwitch } from '../../../../services/firebase/firestore/functions/defaultCircleSwitch';
+import { Context } from '../../../../customTypeScriptTypes/context';
+import { defaultCircleSwitch } from '../../../../services/firebase/firestore/functions';
 import { getDocumentById } from '../../../../services/firebase/firestore/queries';
 import { ResolverMap } from '../../../../customTypeScriptTypes/graphql-utils';
 

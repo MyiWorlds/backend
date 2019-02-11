@@ -21,7 +21,7 @@ interface IGetDocumentsByFilters {
 
 interface IGetDocumentsByFiltersResponse {
   type: string;
-  settings: {
+  data: {
     collection: string;
     filters: IFilter[];
     selectFields: string[];

@@ -1,4 +1,5 @@
 import stackdriver from './../../../services/stackdriver';
+import { Context } from '../../../customTypeScriptTypes/context';
 import { ResolverMap } from '../../../customTypeScriptTypes/graphql-utils';
 
 export const resolvers: ResolverMap = {
@@ -10,16 +11,16 @@ export const resolvers: ResolverMap = {
         return null;
       }
     },
-    styles: async (circle: any, _: null, context: Context) => {
-      if (circle.styles) {
-        return context.circleLoader.load(circle.styles);
+    rating: async (circle: any, _: null, context: Context) => {
+      if (circle.rating) {
+        return context.circleLoader.load(circle.rating);
       } else {
         return null;
       }
     },
-    rating: async (circle: any, _: null, context: Context) => {
-      if (circle.rating) {
-        return context.circleLoader.load(circle.rating);
+    settings: async (circle: any, _: null, context: Context) => {
+      if (circle.settings) {
+        return context.circleLoader.load(circle.settings);
       } else {
         return null;
       }

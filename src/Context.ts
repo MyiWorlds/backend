@@ -32,7 +32,7 @@ const Context = async (req: any) => {
       .get()
       .then((result: any) => result.data());
 
-    headers.queriedUserId = user.id;
+    headers.queriedUserId = user ? user.id : null;
   }
 
   if (headers.userId === headers.queriedUserId) {

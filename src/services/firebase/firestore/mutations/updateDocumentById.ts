@@ -2,6 +2,7 @@ import addToProfileHistory from './addToProfileHistory';
 import cloneToNewDocument from './cloneToNewDocument';
 import firestore from './../index';
 import stackdriver from './../../../stackdriver';
+import { Context } from '../../../../customTypeScriptTypes/context';
 import { isCreator, isEditor, isRequestingUser } from '../rules';
 
 interface Response {
@@ -106,7 +107,7 @@ export default async function updateDocumentById(
     ) {
       const circle = {
         type: 'UPDATED',
-        settings: {
+        data: {
           id: updatedDocument.id,
           collection: updatedDocument.collection,
         },

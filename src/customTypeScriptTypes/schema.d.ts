@@ -74,8 +74,7 @@ slug: string | null;
 public: boolean | null;
 passwordRequired: boolean | null;
 type: string | null;
-settings: any | null;
-styles: ICircle | null;
+settings: ICircle | null;
 rating: ICircle | null;
 tags: Array<string | null> | null;
 title: string | null;
@@ -168,8 +167,7 @@ slug?: string | null;
 public?: boolean | null;
 passwordRequired?: boolean | null;
 type: string;
-settings?: any | null;
-styles?: string | null;
+settings?: string | null;
 rating?: string | null;
 tags?: Array<string | null> | null;
 title?: string | null;
@@ -265,6 +263,7 @@ updatedProfile: IProfile | null;
 interface ICreateUserResponse {
 __typename: "CreateUserResponse";
 status: string | null;
+message: string | null;
 createdUser: IUser | null;
 }
 }

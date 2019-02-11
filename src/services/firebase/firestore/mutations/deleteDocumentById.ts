@@ -1,6 +1,7 @@
-import batchDeleteClonesAndDocument from '../functions/batchDeleteClonesAndDocument';
-import firestore from './../index';
-import stackdriver from './../../../stackdriver';
+import firestore from '../index';
+import stackdriver from '../../../stackdriver';
+import { batchDeleteClonesAndDocument } from '../functions';
+import { Context } from '../../../../customTypeScriptTypes/context';
 import { isCreator, isRequestingUser } from './../rules';
 // import getDocumentsByFilters from '../queries/getDocumentsByFilters';
 

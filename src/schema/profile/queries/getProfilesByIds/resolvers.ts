@@ -1,4 +1,5 @@
 import stackdriver from '../../../../services/stackdriver';
+import { Context } from '../../../../customTypeScriptTypes/context';
 import { getDocumentsByIds } from '../../../../services/firebase/firestore/queries';
 import { ResolverMap } from '../../../../customTypeScriptTypes/graphql-utils';
 

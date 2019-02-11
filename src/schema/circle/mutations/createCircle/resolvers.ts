@@ -1,4 +1,5 @@
 import createCircle from './createCircle';
+import { Context } from '../../../../customTypeScriptTypes/context';
 import { getDocumentById } from '../../../../services/firebase/firestore/queries';
 import { ResolverMap } from '../../../../customTypeScriptTypes/graphql-utils';
 
@@ -15,8 +16,7 @@ export const resolvers: ResolverMap = {
         public: boolean;
         passwordRequired: boolean;
         type: string;
-        settings: JSON;
-        styles: string;
+        settings: string;
         rating: string;
         tags: [string];
         title: string;

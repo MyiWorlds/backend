@@ -49,6 +49,12 @@ npm install
 8. Rename the file it gave you to `service-key.json`
    ----Your done------
 
+Lets seed the database which will give us some basic data types by running
+
+```
+npm run let-there-be-light
+```
+
 Now to start the server and have it restart when you make changes, cd into the project directory and type into the command line.
 
 ```

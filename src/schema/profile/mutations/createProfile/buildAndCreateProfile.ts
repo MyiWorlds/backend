@@ -1,8 +1,12 @@
-import createDocument from '../../../../services/firebase/firestore/mutations/createDocument';
 import firestore from './../../../../services/firebase/firestore/index';
 import isUsernameTaken from '../shared/isUsernameTaken';
-import updateDocumentById from '../../../../services/firebase/firestore/mutations/updateDocumentById';
+import stackdriver from '../../../../services/stackdriver';
+import { Context } from '../../../../customTypeScriptTypes/context';
 import { isAllowedUsername } from '../shared/isAllowedUsername';
+import {
+  updateDocumentById,
+  createDocument,
+} from '../../../../services/firebase/firestore/mutations';
 
 interface Response {
   status: string;
@@ -14,10 +18,13 @@ interface Response {
 export default async function buildAndCreateProfile(
   username: string,
   context: Context,
+  systemCreateOverride?: boolean,
 ) {
-  username = username.toLowerCase();
+  if (!systemCreateOverride) {
+    username = username.toLowerCase();
+  }
 
-  if (!isAllowedUsername(username)) {
+  if (!isAllowedUsername(username) && !systemCreateOverride) {
     const isNotAllowedUsernameResponse: Response = {
       status: 'DENIED',
       message:
@@ -37,10 +44,10 @@ export default async function buildAndCreateProfile(
       return usernameTakenResponse;
     }
 
-    const profileRef = firestore.collection('profiles').doc();
+    const profileId = firestore.collection('profiles').doc().id;
 
     const profile = {
-      id: profileRef.id,
+      id: profileId,
       collection: 'profiles',
       public: true,
       username,
@@ -174,7 +181,7 @@ export default async function buildAndCreateProfile(
         public: true,
         collection: 'circles',
         type: 'GET_INTERFACED_CIRCLES_BY_FILTERS',
-        settings: {
+        data: {
           cursor: null,
           filters: [
             {
@@ -240,6 +247,7 @@ export default async function buildAndCreateProfile(
     };
     return response;
   } catch (error) {
+    stackdriver.report(error);
     throw error;
   }
 }

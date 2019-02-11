@@ -9,13 +9,7 @@ interface Circle {
   public?: boolean | null;
   passwordRequired?: boolean | null;
   type?: string | null;
-  settings?:
-    | any
-    | null
-    | IGetDocumentsByFilters
-    | IGetDocumentById
-    | IGetDocumentsByIds;
-  styles?: string | null;
+  settings?: string | null;
   rating?: string | null;
   tags?: string[] | null;
   title?: string | null;
@@ -30,7 +24,12 @@ interface Circle {
   dateCreated?: any | null;
   dateUpdated?: any | null;
   string?: string | null;
-  data?: any | null;
+  data?:
+    | any
+    | null
+    | IGetDocumentsByFilters
+    | IGetDocumentById
+    | IGetDocumentsByIds;
   number?: number | null;
   bigNumber?: any | null;
   boolean?: boolean | null;

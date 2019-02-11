@@ -1,3 +1,4 @@
+import { Context } from '../../../customTypeScriptTypes/context';
 import { ResolverMap } from '../../../customTypeScriptTypes/graphql-utils';
 
 export const resolvers: ResolverMap = {

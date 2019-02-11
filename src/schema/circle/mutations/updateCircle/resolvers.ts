@@ -1,4 +1,5 @@
 import updateCircle from './updateCircle';
+import { Context } from '../../../../customTypeScriptTypes/context';
 import { getDocumentById } from '../../../../services/firebase/firestore/queries';
 import { ResolverMap } from '../../../../customTypeScriptTypes/graphql-utils';
 
