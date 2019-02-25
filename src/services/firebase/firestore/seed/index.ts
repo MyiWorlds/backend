@@ -2,14 +2,10 @@ import buildAndCreateProfile from '../../../../schema/profile/mutations/createPr
 import createUser from '../../../../schema/user/mutations/createUser/createUser';
 import firestore from '..';
 import stackdriver from '../../../stackdriver';
+import user from './user';
 import { updateDocumentById } from '../mutations';
 
 async function theCreationStory() {
-  const user = {
-    id: '1',
-    collection: 'users',
-  };
-
   const context = {
     userId: user.id,
     queriedUserId: user.id,

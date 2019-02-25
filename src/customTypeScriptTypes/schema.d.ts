@@ -70,6 +70,7 @@ id: string | null;
 collection: string | null;
 pii: boolean | null;
 parent: ICircle | null;
+clonedFrom: ICircle | null;
 slug: string | null;
 public: boolean | null;
 passwordRequired: boolean | null;

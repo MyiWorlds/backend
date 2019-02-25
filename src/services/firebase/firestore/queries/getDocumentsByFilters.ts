@@ -1,7 +1,7 @@
-import firestore from './../index';
+import firestore from '../index';
 import stackdriver from '../../../stackdriver';
 import { Context } from '../../../../customTypeScriptTypes/context';
-import { defaultCircleSwitch } from './../functions';
+import { defaultCircleSwitch } from '../functions';
 import { userCanView } from '../rules';
 
 export default async function getDocumentsByFilters(

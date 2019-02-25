@@ -1,4 +1,4 @@
-import firestore from './../../../../services/firebase/firestore/index';
+import firestore from '../../../../services/firebase/firestore/index';
 import isUsernameTaken from '../shared/isUsernameTaken';
 import stackdriver from '../../../../services/stackdriver';
 import { Context } from '../../../../customTypeScriptTypes/context';
@@ -44,7 +44,9 @@ export default async function buildAndCreateProfile(
       return usernameTakenResponse;
     }
 
-    const profileId = firestore.collection('profiles').doc().id;
+    const profileId = systemCreateOverride
+      ? username
+      : firestore.collection('profiles').doc().id;
 
     const profile = {
       id: profileId,

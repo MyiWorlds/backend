@@ -1,5 +1,5 @@
 import firestore from '../../../../services/firebase/firestore';
-import stackdriver from './../../../../services/stackdriver';
+import stackdriver from '../../../../services/stackdriver';
 import { Context } from '../../../../customTypeScriptTypes/context';
 
 interface Response {

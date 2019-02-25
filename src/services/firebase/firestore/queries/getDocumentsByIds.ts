@@ -1,9 +1,9 @@
 import addToProfileHistory from '../mutations/addToProfileHistory';
-import firestore from './../index';
-import stackdriver from './../../../stackdriver';
+import firestore from '../index';
+import stackdriver from '../../../stackdriver';
 import { Context } from '../../../../customTypeScriptTypes/context';
 import { defaultCircleSwitch } from '../functions';
-import { userCanView } from './../rules';
+import { userCanView } from '../rules';
 
 export default async function getDocumentsByIds(
   collection: string,

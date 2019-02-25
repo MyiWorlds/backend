@@ -5,6 +5,7 @@ interface Circle {
   collection?: string | null;
   pii?: boolean | null;
   parent?: string | null;
+  clonedFrom?: string | null;
   slug?: string | null;
   public?: boolean | null;
   passwordRequired?: boolean | null;

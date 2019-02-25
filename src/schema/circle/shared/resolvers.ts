@@ -1,4 +1,4 @@
-import stackdriver from './../../../services/stackdriver';
+import stackdriver from '../../../services/stackdriver';
 import { Context } from '../../../customTypeScriptTypes/context';
 import { ResolverMap } from '../../../customTypeScriptTypes/graphql-utils';
 
@@ -7,6 +7,13 @@ export const resolvers: ResolverMap = {
     parent: async (circle: any, _: null, context: Context) => {
       if (circle.parent) {
         return context.circleLoader.load(circle.parent);
+      } else {
+        return null;
+      }
+    },
+    clonedFrom: async (circle: any, _: null, context: Context) => {
+      if (circle.clonedFrom) {
+        return context.circleLoader.load(circle.clonedFrom);
       } else {
         return null;
       }

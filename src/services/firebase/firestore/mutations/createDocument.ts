@@ -1,6 +1,6 @@
 import addToProfileHistory from './addToProfileHistory';
 import firestore from '../../firestore/index';
-import stackdriver from './../../../stackdriver';
+import stackdriver from '../../../stackdriver';
 import { Context } from '../../../../customTypeScriptTypes/context';
 
 interface Response {

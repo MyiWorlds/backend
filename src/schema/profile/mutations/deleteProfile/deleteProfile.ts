@@ -1,4 +1,4 @@
-import firestore from './../../../../services/firebase/firestore/index';
+import firestore from '../../../../services/firebase/firestore/index';
 import stackdriver from '../../../../services/stackdriver';
 import { Context } from '../../../../customTypeScriptTypes/context';
 import { getDocumentsByFilters } from '../../../../services/firebase/firestore/queries';

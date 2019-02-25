@@ -1,7 +1,7 @@
 import addToProfileHistory from './addToProfileHistory';
 import cloneToNewDocument from './cloneToNewDocument';
-import firestore from './../index';
-import stackdriver from './../../../stackdriver';
+import firestore from '../index';
+import stackdriver from '../../../stackdriver';
 import { Context } from '../../../../customTypeScriptTypes/context';
 import { isCreator, isEditor, isRequestingUser } from '../rules';
 

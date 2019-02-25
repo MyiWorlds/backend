@@ -1,4 +1,4 @@
-import { Context } from './../../../../customTypeScriptTypes/context.d';
+import { Context } from '../../../../customTypeScriptTypes/context.d';
 import { getDocumentsByFilters } from '../queries';
 
 const updateCircleReferences = async (id: string, context: Context) => {
