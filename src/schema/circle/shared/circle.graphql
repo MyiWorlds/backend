@@ -8,6 +8,7 @@ type Circle {
   public: Boolean
   passwordRequired: Boolean
   type: String
+  properties: [String]
   settings: Circle
   rating: Circle
   tags: [String]
