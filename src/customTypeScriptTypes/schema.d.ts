@@ -90,6 +90,7 @@ viewers: Array<IProfile | null> | null;
 editors: Array<IProfile | null> | null;
 dateCreated: any | null;
 dateUpdated: any | null;
+key: string | null;
 string: string | null;
 data: any | null;
 number: number | null;

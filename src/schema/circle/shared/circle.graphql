@@ -23,6 +23,7 @@ type Circle {
   editors: [Profile]
   dateCreated: BigInt
   dateUpdated: BigInt
+  key: String
   string: String
   data: JSON
   number: Int

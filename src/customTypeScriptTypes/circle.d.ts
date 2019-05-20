@@ -25,6 +25,7 @@ interface Circle {
   dateCreated?: any | null;
   dateUpdated?: any | null;
   string?: string | null;
+  key?: string;
   data?:
     | any
     | null
