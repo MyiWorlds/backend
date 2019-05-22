@@ -40,3 +40,16 @@ interface Circle {
   line?: string | null;
   lines?: string[] | null;
 }
+
+interface SearchCircle {
+  id: string;
+  title?: string | null;
+  type: string;
+  lines: SearchCircle[];
+  data:
+    | any
+    | null
+    | IGetDocumentsByFilters
+    | IGetDocumentById
+    | IGetDocumentsByIds;
+}

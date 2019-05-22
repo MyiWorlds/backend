@@ -26,6 +26,7 @@ getCircleById: ICircle | null;
 getCircleByProfileUsername: ICircle | null;
 getCirclesByFilters: ICircle | null;
 getCirclesByIds: Array<ICircle | null> | null;
+searchCirclesByTags: ICircle | null;
 getProfileById: IProfile | null;
 getProfileByUsername: IGetProfileByUsernameResponse | null;
 getProfilesByIds: Array<IProfile | null> | null;
@@ -50,6 +51,10 @@ numberOfResults?: number | null;
 
 interface IGetCirclesByIdsOnQueryArguments {
 ids: Array<string | null>;
+}
+
+interface ISearchCirclesByTagsOnQueryArguments {
+circle: any;
 }
 
 interface IGetProfileByIdOnQueryArguments {
