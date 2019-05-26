@@ -15,7 +15,7 @@ const getData = async (
     filters,
     [], // Select fields
     {
-      property: 'dateCreated',
+      property: 'dateUpdated',
       ascending: true,
     },
     numberOfResults,
@@ -30,15 +30,14 @@ export default async function getEntitiesAndRemoveInvalid(
   circle: SearchCircle,
   context: Context,
 ) {
+  const requestedNumberOfResults = circle.data.numberOfResults;
   const cursor =
-    circle.data.cursor && circle.data.cursor.endCursor
-      ? circle.data.cursor.endCursor
-      : null;
+    circle.data.cursor && circle.data.cursor ? circle.data.cursor : null;
 
   const query = await getData(
     circle.data.collection,
     circle.data.filters.searchConditions,
-    circle.data.numberOfResults,
+    requestedNumberOfResults,
     cursor,
     context,
   );
@@ -48,22 +47,23 @@ export default async function getEntitiesAndRemoveInvalid(
   circle.lines = circle.lines
     ? circle.lines.concat(resultsFiltered)
     : resultsFiltered;
+
   circle.data.cursor = query.data.cursor;
 
-  const fetchMore = hasFetchedEnough(circle, circle.data.numberOfResults);
+  const fetchMore = hasFetchedEnough(circle, requestedNumberOfResults);
   let numberOfRetries = 0;
+  const maxNumberOfRetries = 5;
 
-  while (fetchMore && numberOfRetries < 3) {
+  while (fetchMore && numberOfRetries < maxNumberOfRetries) {
     numberOfRetries++;
 
-    const amountToRefetch =
-      circle.data.numberOfResults.numberOfResults - circle.lines.length;
+    const amountToRefetch = requestedNumberOfResults - circle.lines.length;
 
     const getMoreData = await getData(
       circle.data.collection,
       circle.data.filters.searchConditions,
       amountToRefetch,
-      circle.data.cursor.endCursor,
+      circle.data.cursor,
       context,
     );
     const resultsFiltered2 = removeAllInvalid(getMoreData.lines);
@@ -71,8 +71,14 @@ export default async function getEntitiesAndRemoveInvalid(
     circle.lines = circle.lines
       ? circle.lines.concat(resultsFiltered2)
       : resultsFiltered2;
+
     circle.data.cursor = query.data.cursor;
   }
+
+  const numberOfResults = circle.lines.length;
+  circle.data.hasMoreResults =
+    numberOfRetries >= maxNumberOfRetries &&
+    numberOfResults >= requestedNumberOfResults;
 
   return circle;
 }

@@ -28,6 +28,7 @@ export default async function getDocumentsByFilters(
       orderBy,
       numberOfResults,
       cursor: pageCursor || null,
+      hasMoreResults: false,
     },
     lines: [],
   };
@@ -75,6 +76,10 @@ export default async function getDocumentsByFilters(
 
       const lastItemFetched = data[data.length - 1][orderBy.property];
       response.data.cursor = lastItemFetched;
+      if (data.length >= numberOfResults) {
+        // Can do a check to see if another item exists here to prevent false positives
+        response.data.hasMoreResults = true;
+      }
 
       return response;
     });

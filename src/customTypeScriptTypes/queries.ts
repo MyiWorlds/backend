@@ -17,6 +17,7 @@ interface IGetDocumentsByFilters {
   selectFields: string[];
   orderBy: IOrderBy;
   numberOfResults: number;
+  hasMoreResults: boolean;
 }
 
 interface IGetDocumentsByFiltersResponse {
@@ -27,6 +28,7 @@ interface IGetDocumentsByFiltersResponse {
     selectFields: string[];
     orderBy: IOrderBy;
     numberOfResults: number;
+    hasMoreResults: boolean;
     cursor: any | null;
   };
   lines: any[];
