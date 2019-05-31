@@ -18,7 +18,6 @@ async function batchDelete(
     const getPiiCircles: IGetDocumentsByFiltersResponse = await getDocumentsByFilters(
       collection,
       filters,
-      ['id'],
       {
         property: 'dateCreated',
         ascending: false,
@@ -26,6 +25,8 @@ async function batchDelete(
       1,
       cursor,
       context,
+      undefined,
+      ['id'],
     );
 
     if (getPiiCircles.lines.length) {

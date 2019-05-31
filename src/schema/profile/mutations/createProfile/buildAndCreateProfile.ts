@@ -192,7 +192,6 @@ export default async function buildAndCreateProfile(
               value: historyId,
             },
           ],
-          selectFields: [],
           numberOfResults: 12,
           orderBy: {
             property: 'dateCreated',

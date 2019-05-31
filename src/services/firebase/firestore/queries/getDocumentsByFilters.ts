@@ -2,16 +2,19 @@ import firestore from '../index';
 import stackdriver from '../../../stackdriver';
 import { Context } from '../../../../customTypeScriptTypes/context';
 import { defaultCircleSwitch } from '../functions';
+import { GraphQLResolveInfo } from 'graphql';
 import { userCanView } from '../rules';
+import graphqlFields = require('graphql-fields');
 
 export default async function getDocumentsByFilters(
   collection: string,
   filters: IFilter[],
-  selectFields: string[],
   orderBy: IOrderBy,
   numberOfResults: number,
   pageCursor: string | null,
   context: Context,
+  info?: GraphQLResolveInfo,
+  selectFields?: string[],
 ) {
   console.time('getDocumentsByFilters TTC');
 
@@ -24,7 +27,6 @@ export default async function getDocumentsByFilters(
     data: {
       collection,
       filters,
-      selectFields,
       orderBy,
       numberOfResults,
       cursor: pageCursor || null,
@@ -42,8 +44,24 @@ export default async function getDocumentsByFilters(
       });
     }
 
-    if (selectFields.length) {
-      query = query.select(selectFields.join());
+    let fieldsToGet = null;
+
+    if (selectFields && selectFields.length) {
+      fieldsToGet = selectFields;
+    } else if (info) {
+      const fieldsWithoutTypeName = graphqlFields(
+        info,
+        {},
+        { excludedFields: ['__typename'] },
+      );
+      fieldsToGet = Object.keys(fieldsWithoutTypeName).map(
+        (property: string) => property,
+      );
+    }
+
+    if (fieldsToGet) {
+      const arr = [...fieldsToGet, 'creator', 'editors', 'viewers', 'type'];
+      query = query.select(...arr);
     }
 
     if (pageCursor) {

@@ -1,7 +1,6 @@
 type Query {
   getCirclesByFilters(
     filters: JSON
-    selectFields: [String]
     orderBy: JSON!
     cursor: JSON
     numberOfResults: Int

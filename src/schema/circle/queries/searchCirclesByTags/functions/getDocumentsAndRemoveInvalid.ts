@@ -13,7 +13,6 @@ const getData = async (
   const circle = await getDocumentsByFilters(
     collection,
     filters,
-    [], // Select fields
     {
       property: 'dateUpdated',
       ascending: true,

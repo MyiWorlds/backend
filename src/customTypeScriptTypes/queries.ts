@@ -9,12 +9,8 @@ interface IOrderBy {
   ascending: boolean;
 }
 
-/**
- * @param selectFields by default will return all fields
- */
 interface IGetDocumentsByFilters {
   filters: IFilter;
-  selectFields: string[];
   orderBy: IOrderBy;
   numberOfResults: number;
   hasMoreResults: boolean;
@@ -25,7 +21,6 @@ interface IGetDocumentsByFiltersResponse {
   data: {
     collection: string;
     filters: IFilter[];
-    selectFields: string[];
     orderBy: IOrderBy;
     numberOfResults: number;
     hasMoreResults: boolean;

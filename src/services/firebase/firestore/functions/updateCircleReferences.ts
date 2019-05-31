@@ -16,7 +16,6 @@ const updateCircleReferences = async (id: string, context: Context) => {
         value: id,
       },
     ],
-    ['id'],
     {
       property: 'dateUpdated',
       ascending: true,
@@ -24,6 +23,8 @@ const updateCircleReferences = async (id: string, context: Context) => {
     300,
     null,
     context,
+    undefined,
+    ['id'],
   );
 
   console.log(linesReferences);
@@ -42,7 +43,6 @@ const updateCircleReferences = async (id: string, context: Context) => {
         value: id,
       },
     ],
-    ['id'],
     {
       property: 'dateUpdated',
       ascending: true,
@@ -50,6 +50,8 @@ const updateCircleReferences = async (id: string, context: Context) => {
     300,
     null,
     context,
+    undefined,
+    ['id'],
   );
   console.log(lineReferences);
   return;
