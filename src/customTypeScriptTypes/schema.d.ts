@@ -46,6 +46,7 @@ filters?: any | null;
 orderBy: any;
 cursor?: any | null;
 numberOfResults?: number | null;
+selectFields?: Array<string | null> | null;
 }
 
 interface IGetCirclesByIdsOnQueryArguments {
