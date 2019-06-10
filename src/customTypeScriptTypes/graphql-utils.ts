@@ -6,7 +6,7 @@ export type Resolver = (
   args: any,
   context: Context,
   info: GraphQLResolveInfo,
-  selectFields: string[];
+  selectFields: string[],
 ) => any;
 
 export interface ResolverMap {

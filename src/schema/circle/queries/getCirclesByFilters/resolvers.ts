@@ -2,6 +2,7 @@ import stackdriver from '../../../../services/stackdriver';
 import { Context } from '../../../../customTypeScriptTypes/context';
 import { getDocumentsByFilters } from '../../../../services/firebase/firestore/queries';
 import { GraphQLResolveInfo } from 'graphql';
+import { IFilter, IOrderBy } from '../../../../customTypeScriptTypes/queries';
 import { ResolverMap } from '../../../../customTypeScriptTypes/graphql-utils';
 
 export const resolvers: ResolverMap = {

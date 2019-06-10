@@ -2,6 +2,8 @@ import hasFetchedEnough from './hasFetchedEnough';
 import removeAllInvalid from './removeAllInvalid';
 import { Context } from '../../../../../customTypeScriptTypes/context';
 import { getDocumentsByFilters } from '../../../../../services/firebase/firestore/queries';
+import { IFilter } from '../../../../../customTypeScriptTypes/queries';
+import { SearchCircle } from '../../../../../customTypeScriptTypes/circle';
 
 const getData = async (
   collection: string,

@@ -1,22 +1,22 @@
-interface IFilter {
+export interface IFilter {
   property: string;
   condition: '==' | '<' | '>' | '<=' | '>=' | 'array-contains';
   value: any;
 }
 
-interface IOrderBy {
+export interface IOrderBy {
   property: string;
   ascending: boolean;
 }
 
-interface IGetDocumentsByFilters {
+export interface IGetDocumentsByFilters {
   filters: IFilter;
   orderBy: IOrderBy;
   numberOfResults: number;
   hasMoreResults: boolean;
 }
 
-interface IGetDocumentsByFiltersResponse {
+export interface IGetDocumentsByFiltersResponse {
   type: string;
   data: {
     collection: string;
@@ -29,12 +29,12 @@ interface IGetDocumentsByFiltersResponse {
   lines: any[];
 }
 
-interface IGetDocumentsByIds {
+export interface IGetDocumentsByIds {
   collection: string;
   ids: string[];
 }
 
-interface IGetDocumentById {
+export interface IGetDocumentById {
   id: string;
   collection: string;
 }

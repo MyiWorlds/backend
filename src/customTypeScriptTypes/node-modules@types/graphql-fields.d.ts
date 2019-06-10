@@ -1,1 +1,1 @@
-declare module 'graphql-fields';
+// declare module 'graphql-fields';

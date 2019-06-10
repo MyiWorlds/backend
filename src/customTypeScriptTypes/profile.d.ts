@@ -1,4 +1,4 @@
-interface Profile {
+export interface Profile {
   id?: string | null;
   collection?: string | null;
   public?: boolean | null;

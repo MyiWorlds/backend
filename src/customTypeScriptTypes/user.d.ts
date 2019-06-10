@@ -1,4 +1,4 @@
-interface User {
+export interface User {
   id?: string | null;
   collection?: string | null;
   email?: string | null;

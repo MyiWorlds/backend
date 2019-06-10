@@ -3,8 +3,8 @@ const credentials = require('../../service-account.json');
 
 const stackdriver = new ErrorReporting({
   projectId: credentials.project_id,
-  ignoreEnvironmentCheck: true,
   credentials,
+  reportMode: 'always',
 });
 
 export default stackdriver;

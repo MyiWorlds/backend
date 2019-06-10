@@ -159,6 +159,7 @@ profiles: Array<IProfile | null> | null;
 interface IMutation {
 __typename: "Mutation";
 createCircle: ICreateCircleResponse | null;
+deleteCircle: IDeleteCircleResponse | null;
 updateCircle: IUpdateCircleResponse | null;
 createProfile: ICreateProfileResponse | null;
 deleteProfile: IDeleteProfileResponse | null;
@@ -200,6 +201,10 @@ geoPoint?: any | null;
 lines?: Array<string | null> | null;
 }
 
+interface IDeleteCircleOnMutationArguments {
+id: string;
+}
+
 interface IUpdateCircleOnMutationArguments {
 circle: any;
 merge: boolean;
@@ -229,6 +234,16 @@ status: string | null;
 message: string | null;
 createdCircle: ICircle | null;
 creator: IProfile | null;
+}
+
+interface IDeleteCircleResponse {
+__typename: "DeleteCircleResponse";
+status: string | null;
+message: string | null;
+circleIdToDelete: string | null;
+circleDeleted: boolean | null;
+numberOfPiiCircleClones: number | null;
+piiCircleClonesDeleted: boolean | null;
 }
 
 interface IUpdateCircleResponse {

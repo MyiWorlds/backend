@@ -1,4 +1,4 @@
-interface IDeleteProfileResponse {
+export interface IDeleteProfileResponse {
   status: string;
   message: string;
   profileIdToDelete: string;

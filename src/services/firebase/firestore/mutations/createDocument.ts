@@ -1,7 +1,10 @@
 import addToProfileHistory from './addToProfileHistory';
 import firestore from '../../firestore/index';
 import stackdriver from '../../../stackdriver';
+import { Circle } from '../../../../customTypeScriptTypes/circle';
 import { Context } from '../../../../customTypeScriptTypes/context';
+import { Profile } from '../../../../customTypeScriptTypes/profile';
+import { User } from '../../../../customTypeScriptTypes/user';
 
 interface Response {
   status: string;

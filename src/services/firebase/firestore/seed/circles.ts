@@ -1,4 +1,5 @@
 import user from './user';
+import { Circle } from '../../../../customTypeScriptTypes/circle';
 
 const circles: Circle[] = [
   // Fields to display/edit

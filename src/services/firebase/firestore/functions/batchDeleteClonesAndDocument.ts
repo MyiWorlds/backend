@@ -22,7 +22,7 @@ const batchDeleteClonesAndDocument = async (collection: string, id: string) => {
 
   try {
     let keepDeleting = true;
-    let cursor = null;
+    let cursor: string | null = null;
 
     while (keepDeleting) {
       const clones = await firestore
@@ -61,7 +61,7 @@ const batchDeleteClonesAndDocument = async (collection: string, id: string) => {
       .doc(id)
       .delete();
 
-    if (deleteParent.success) {
+    if (deleteParent.isEqual) {
       response = {
         status: 'SUCCESS',
         message: 'I successfully deleted that and its clones for you',

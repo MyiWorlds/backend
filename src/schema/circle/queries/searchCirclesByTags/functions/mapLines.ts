@@ -1,5 +1,6 @@
 import circleSwitch from './circleSwitch';
 import { Context } from '../../../../../customTypeScriptTypes/context';
+import { SearchCircle } from '../../../../../customTypeScriptTypes/circle';
 
 const mapLines = async (circle: SearchCircle, context: Context) => {
   circle.lines = await Promise.all(

@@ -1,4 +1,4 @@
-interface Circle {
+export interface Circle {
   id?: string | null;
   cached?: boolean;
   cache?: any;
@@ -41,7 +41,7 @@ interface Circle {
   lines?: string[] | null;
 }
 
-interface SearchCircle {
+export interface SearchCircle {
   id: string;
   title?: string | null;
   type: string;

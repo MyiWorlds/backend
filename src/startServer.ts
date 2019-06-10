@@ -18,7 +18,14 @@ export const startServer = async () => {
     introspection: true,
     context: ({ req }: { req: any }) => Context(req),
     formatError: (error: any) => {
-      return stackdriver.report(new Error(error));
+      // Can't get it to work with Apollo types
+      stackdriver.report(new Error(`${error}`));
+
+      if (error.message.startsWith('Database Error: ')) {
+        return 'Internal server error';
+      }
+
+      return error.message;
     },
   });
 

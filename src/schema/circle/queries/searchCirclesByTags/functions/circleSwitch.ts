@@ -1,6 +1,7 @@
 import getDocumentsAndRemoveInvalid from './getDocumentsAndRemoveInvalid';
 import mapLines from './mapLines';
 import { Context } from '../../../../../customTypeScriptTypes/context';
+import { SearchCircle } from '../../../../../customTypeScriptTypes/circle';
 
 const circleSwitch = async (circle: SearchCircle, context: Context) => {
   switch (circle.type) {
