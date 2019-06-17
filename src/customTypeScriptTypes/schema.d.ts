@@ -160,6 +160,7 @@ interface IMutation {
 __typename: "Mutation";
 createCircle: ICreateCircleResponse | null;
 deleteCircle: IDeleteCircleResponse | null;
+fileUpload: IFileUploadResponse | null;
 updateCircle: IUpdateCircleResponse | null;
 createProfile: ICreateProfileResponse | null;
 deleteProfile: IDeleteProfileResponse | null;
@@ -205,6 +206,10 @@ interface IDeleteCircleOnMutationArguments {
 id: string;
 }
 
+interface IFileUploadOnMutationArguments {
+file: any;
+}
+
 interface IUpdateCircleOnMutationArguments {
 circle: any;
 merge: boolean;
@@ -244,6 +249,12 @@ circleIdToDelete: string | null;
 circleDeleted: boolean | null;
 numberOfPiiCircleClones: number | null;
 piiCircleClonesDeleted: boolean | null;
+}
+
+interface IFileUploadResponse {
+__typename: "FileUploadResponse";
+url: string | null;
+sizes: Array<string | null> | null;
 }
 
 interface IUpdateCircleResponse {

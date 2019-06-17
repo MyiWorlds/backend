@@ -7,6 +7,7 @@
     "outDir": "./build",
     "moduleResolution": "node",
     "typeRoots": ["./src/customTypeScriptTypes/node-modules@types/*.d.ts"],
+    "types": ["node"],
     "skipLibCheck": true,
     "removeComments": true,
     "noImplicitAny": false,

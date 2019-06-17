@@ -17,6 +17,7 @@ A server boilerplate is made with:
 - Firebase
   - Firestore
   - Firebase Authentication
+  - Firebase Functions
 
 ## Installation
 
@@ -64,6 +65,29 @@ npm run watch
 You can now navigate to `http://localhost:4000` to use GraphQL Playground to query your GraphQL api.
 Or move onto setting up the frontend to this project where you can start building a real application here:
 https://github.com/MyiWorlds/frontend
+
+##Using the Firebase Functions
+
+- Navigate to the folder ./functions by doing cd ./functions from this root directory
+- Then run
+
+```
+npm install
+```
+
+- Login to your Firebase account and select the correct project. Select Firebase funcions from the selection to setup your account by running:
+
+```
+firebase init
+```
+
+- To deploy those functions to Firebase Functions
+
+```
+npm run deploy
+```
+
+Something to keep in mind about working with Firebase functions is you can't import files from outside the functions folder right now. (Which is why there is duplicated Cloud Storage Buckets list)
 
 This project was started off the combination of two YouTubers work. If you are not subscribed and have not watched their tutorials, please do. They are absolutely fantastic!
 

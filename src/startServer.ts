@@ -5,6 +5,12 @@ import { genSchema } from './utils/genSchema';
 import 'dotenv/config';
 
 export const startServer = async () => {
+  if (!process.env.NODE_ENV) {
+    throw new Error(
+      '❗️🛑❗️🛑❗️🛑❗️🛑❗️🛑❗️🛑 NO ENVIRONMENT SET IN YOUR package.json STARTUP SCRIPT THAT YOU RAN ❗️🛑❗️🛑❗️🛑❗️🛑❗️🛑❗️🛑',
+    );
+  }
+
   const playground: any = {
     settings: {
       'editor.theme': 'light',
@@ -32,7 +38,7 @@ export const startServer = async () => {
   const app = await server
     .listen({ port: process.env.PORT || 8000 })
     .then(({ url }: { url: string }) => {
-      console.log(`🚀  Server ready at ${url}`);
+      console.log(`🚀  Server ready at ${url} 🚀`);
     });
 
   return app;
