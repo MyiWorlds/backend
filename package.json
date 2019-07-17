@@ -24,7 +24,9 @@
     "gen-schema-types": "nodemon -e graphql --exec ts-node src/scripts/createTypes.ts",
     "setup-cloud-storage-development": "SET NODE_ENV=development&& ts-node ./src/services/google-cloud/cloud-storage/createBuckets.ts",
     "setup-cloud-storage-qa": "SET NODE_ENV=qa&& ts-node ./src/services/google-cloud/cloud-storage/createBuckets.ts qa",
-    "setup-cloud-storage-production": "SET NODE_ENV=production&& ts-node ./src/services/google-cloud/cloud-storage/createBuckets.ts production"
+    "setup-cloud-storage-production": "SET NODE_ENV=production&& ts-node ./src/services/google-cloud/cloud-storage/createBuckets.ts production",
+    "seed-firestore-circles-development": "SET NODE_ENV=development&& ts-node ./src/services/firebase/firestore/seed/createTypes.ts",
+    "update-firestore-circles-development": "SET NODE_ENV=development&& ts-node ./src/services/firebase/firestore/seed/updateTypes.ts"
   },
   "dependencies": {
     "@google-cloud/debug-agent": "^4.0.0",

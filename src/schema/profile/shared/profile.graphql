@@ -10,9 +10,8 @@ type Profile {
   level: Circle
   rating: Circle
   isDarkTheme: Boolean
-  isMyTypeStyles: Boolean
-  myTypeStyles: Circle
-  isMyTheme: Boolean
+  circleTypeOverrides: Circle
+  overrideCircleTypes: Boolean
   myTheme: Circle
   homePublic: Circle
   home: Circle

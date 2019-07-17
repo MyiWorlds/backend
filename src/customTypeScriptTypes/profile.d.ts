@@ -10,9 +10,8 @@ export interface Profile {
   level?: string | null;
   rating?: string | null;
   isDarkTheme?: boolean | null;
-  isMyTypeStyles?: boolean | null;
-  myTypeStyles?: string | null;
-  isMyTheme?: boolean | null;
+  circleTypeOverrides?: string | null;
+  overrideCircleTypes?: boolean | null;
   myTheme?: string | null;
   homePublic?: string | null;
   home?: string | null;

@@ -15,8 +15,7 @@ export default async function updateProfile(
   id: string,
   username: string | undefined,
   isDarkTheme: boolean | undefined,
-  isMyTheme: boolean | undefined,
-  isMyTypeStyles: boolean | undefined,
+  overrideCircleTypes: boolean | undefined,
   addToHistory: boolean | undefined,
   context: Context,
 ) {
@@ -51,8 +50,7 @@ export default async function updateProfile(
       collection: 'profiles',
       username,
       isDarkTheme,
-      isMyTheme,
-      isMyTypeStyles,
+      overrideCircleTypes,
       addToHistory,
     };
 

@@ -120,9 +120,8 @@ dateUpdated: any | null;
 level: ICircle | null;
 rating: ICircle | null;
 isDarkTheme: boolean | null;
-isMyTypeStyles: boolean | null;
-myTypeStyles: ICircle | null;
-isMyTheme: boolean | null;
+circleTypeOverrides: ICircle | null;
+overrideCircleTypes: boolean | null;
 myTheme: ICircle | null;
 homePublic: ICircle | null;
 home: ICircle | null;
@@ -158,6 +157,7 @@ profiles: Array<IProfile | null> | null;
 
 interface IMutation {
 __typename: "Mutation";
+cloneCircle: ICloneCircleResponse | null;
 createCircle: ICreateCircleResponse | null;
 deleteCircle: IDeleteCircleResponse | null;
 fileUpload: IFileUploadResponse | null;
@@ -166,6 +166,10 @@ createProfile: ICreateProfileResponse | null;
 deleteProfile: IDeleteProfileResponse | null;
 updateProfile: IUpdateProfileResponse | null;
 createUser: ICreateUserResponse | null;
+}
+
+interface ICloneCircleOnMutationArguments {
+id?: string | null;
 }
 
 interface ICreateCircleOnMutationArguments {
@@ -231,6 +235,13 @@ data?: any | null;
 interface ICreateUserOnMutationArguments {
 id: string;
 email: string;
+}
+
+interface ICloneCircleResponse {
+__typename: "CloneCircleResponse";
+message: string | null;
+clonedCircle: ICircle | null;
+clonedCircleId: string | null;
 }
 
 interface ICreateCircleResponse {

@@ -24,9 +24,9 @@ export const resolvers: ResolverMap = {
         return null;
       }
     },
-    myTypeStyles: async (profile: any, _: null, context: Context) => {
-      if (profile.myTypeStyles) {
-        return context.circleLoader.load(profile.myTypeStyles);
+    circleTypeOverrides: async (profile: any, _: null, context: Context) => {
+      if (profile.circleTypeOverrides) {
+        return context.circleLoader.load(profile.circleTypeOverrides);
       } else {
         return null;
       }

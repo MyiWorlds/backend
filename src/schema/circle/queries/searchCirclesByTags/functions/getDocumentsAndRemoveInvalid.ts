@@ -77,8 +77,10 @@ export default async function getEntitiesAndRemoveInvalid(
   }
 
   const numberOfResults = circle.lines.length;
+  // hasMoreResults is not in firestores query
   circle.data.hasMoreResults =
-    numberOfRetries >= maxNumberOfRetries &&
+    (numberOfRetries >= maxNumberOfRetries &&
+      numberOfResults >= requestedNumberOfResults) ||
     numberOfResults >= requestedNumberOfResults;
 
   return circle;

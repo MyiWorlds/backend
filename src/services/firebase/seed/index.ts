@@ -1,9 +1,9 @@
 import buildAndCreateProfile from '../../../../schema/profile/mutations/createProfile/buildAndCreateProfile';
 import createUser from '../../../../schema/user/mutations/createUser/createUser';
-import firestore from './../index';
-import profile from './../../../../schema/profile/seed/profile';
+import firestore from '..';
+import profile from './profile';
 import stackdriver from '../../../stackdriver';
-import user from '../../../../schema/user/seed/user';
+import user from '../../../schema/user/seed/user';
 import { updateDocumentById } from '../mutations';
 
 async function theCreationStory() {
