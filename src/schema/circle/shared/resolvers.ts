@@ -78,7 +78,7 @@ export const resolvers: ResolverMap = {
       if (circle.lines) {
         if (typeof circle.lines[0] === 'string') {
           try {
-            return context.profileLoader.loadMany(circle.editors);
+            return context.circleLoader.loadMany(circle.lines);
           } catch (error) {
             stackdriver.report(error);
           }

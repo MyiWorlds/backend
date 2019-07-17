@@ -1,5 +1,6 @@
 import createDocument from './createDocument';
 import updateDocumentById from './updateDocumentById';
+import { Circle } from '../../../../customTypeScriptTypes/circle';
 import { Context } from '../../../../customTypeScriptTypes/context';
 import { defaultCircleSwitch } from '../functions';
 

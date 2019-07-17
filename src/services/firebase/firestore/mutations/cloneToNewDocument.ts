@@ -1,4 +1,5 @@
 import firestore from '../index';
+import stackdriver from '../../../stackdriver';
 
 // This should be in a cloud function
 export default async function cloneToNewDocument(doc: any) {
@@ -10,6 +11,7 @@ export default async function cloneToNewDocument(doc: any) {
 
   doc[moveOldId] = doc.id;
   doc.id = newUid;
+  doc.collection = newCollection;
 
   try {
     await firestore
@@ -17,7 +19,7 @@ export default async function cloneToNewDocument(doc: any) {
       .doc(newUid)
       .set(doc);
   } catch (error) {
-    throw error;
+    stackdriver.report(error);
   }
   console.timeEnd('cloneToNewDocument time to complete');
 }

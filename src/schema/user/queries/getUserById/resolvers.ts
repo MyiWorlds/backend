@@ -13,6 +13,7 @@ export const resolvers: ResolverMap = {
         return user;
       } catch (error) {
         stackdriver.report(error);
+        return null;
       }
     },
   },

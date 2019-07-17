@@ -1,22 +1,25 @@
 import addToProfileHistory from './addToProfileHistory';
 import firestore from '../../firestore/index';
 import stackdriver from '../../../stackdriver';
+import { Circle } from '../../../../customTypeScriptTypes/circle';
 import { Context } from '../../../../customTypeScriptTypes/context';
+import { Profile } from '../../../../customTypeScriptTypes/profile';
+import { User } from '../../../../customTypeScriptTypes/user';
 
-interface Response {
+interface CreateDocumentResponse {
   status: string;
   message: string;
   createdDocumentId: string | null;
   contextProfileId: string;
 }
 
-export default async function createDocument(
+const createDocument = async (
   documentToCreate: Circle | Profile | User,
   context: Context,
   addToHistory?: boolean,
-) {
+): Promise<CreateDocumentResponse> => {
   console.time('Time to createDocument');
-  const response: Response = {
+  const response: CreateDocumentResponse = {
     status: '',
     message: '',
     createdDocumentId: null,
@@ -85,4 +88,6 @@ export default async function createDocument(
   }
   console.timeEnd('Time to createDocument');
   return response;
-}
+};
+
+export default createDocument;

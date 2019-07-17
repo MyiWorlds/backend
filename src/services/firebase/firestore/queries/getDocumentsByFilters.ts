@@ -5,6 +5,11 @@ import { defaultCircleSwitch } from '../functions';
 import { GraphQLResolveInfo } from 'graphql';
 import { userCanView } from '../rules';
 import graphqlFields = require('graphql-fields');
+import {
+  IFilter,
+  IOrderBy,
+  IGetDocumentsByFiltersResponse,
+} from '../../../../customTypeScriptTypes/queries';
 
 export default async function getDocumentsByFilters(
   collection: string,
@@ -36,7 +41,7 @@ export default async function getDocumentsByFilters(
   };
 
   try {
-    let query = firestore.collection(collection);
+    let query: any = firestore.collection(collection);
 
     if (filters) {
       filters.forEach(filter => {
@@ -44,7 +49,7 @@ export default async function getDocumentsByFilters(
       });
     }
 
-    let fieldsToGet = null;
+    let fieldsToGet: string[] | null = null;
 
     if (selectFields && selectFields.length) {
       fieldsToGet = selectFields;

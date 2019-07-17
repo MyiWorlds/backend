@@ -6,9 +6,12 @@
     "sourceMap": true,
     "outDir": "./build",
     "moduleResolution": "node",
-
+    "typeRoots": ["./src/customTypeScriptTypes/node-modules@types/*.d.ts"],
+    "types": ["node"],
+    "skipLibCheck": true,
     "removeComments": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
+    "strict": false,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "noImplicitThis": true,
@@ -17,9 +20,10 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": false,
+    "resolveJsonModule": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true
   },
   "exclude": ["node_modules"],
-  "include": ["./src/**/*.tsx", "./src/**/*.ts"]
+  "include": ["./src/**/*.ts"]
 }

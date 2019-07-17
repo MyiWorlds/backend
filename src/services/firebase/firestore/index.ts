@@ -1,6 +1,6 @@
 import firebase from '..';
 
-const firestore = new firebase.firestore();
+const firestore = firebase.firestore();
 
 const settings = {
   timestampsInSnapshots: true,

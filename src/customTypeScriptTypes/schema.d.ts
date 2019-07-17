@@ -120,9 +120,8 @@ dateUpdated: any | null;
 level: ICircle | null;
 rating: ICircle | null;
 isDarkTheme: boolean | null;
-isMyTypeStyles: boolean | null;
-myTypeStyles: ICircle | null;
-isMyTheme: boolean | null;
+circleTypeOverrides: ICircle | null;
+overrideCircleTypes: boolean | null;
 myTheme: ICircle | null;
 homePublic: ICircle | null;
 home: ICircle | null;
@@ -158,12 +157,19 @@ profiles: Array<IProfile | null> | null;
 
 interface IMutation {
 __typename: "Mutation";
+cloneCircle: ICloneCircleResponse | null;
 createCircle: ICreateCircleResponse | null;
+deleteCircle: IDeleteCircleResponse | null;
+fileUpload: IFileUploadResponse | null;
 updateCircle: IUpdateCircleResponse | null;
 createProfile: ICreateProfileResponse | null;
 deleteProfile: IDeleteProfileResponse | null;
 updateProfile: IUpdateProfileResponse | null;
 createUser: ICreateUserResponse | null;
+}
+
+interface ICloneCircleOnMutationArguments {
+id?: string | null;
 }
 
 interface ICreateCircleOnMutationArguments {
@@ -200,6 +206,14 @@ geoPoint?: any | null;
 lines?: Array<string | null> | null;
 }
 
+interface IDeleteCircleOnMutationArguments {
+id: string;
+}
+
+interface IFileUploadOnMutationArguments {
+file: any;
+}
+
 interface IUpdateCircleOnMutationArguments {
 circle: any;
 merge: boolean;
@@ -223,12 +237,35 @@ id: string;
 email: string;
 }
 
+interface ICloneCircleResponse {
+__typename: "CloneCircleResponse";
+message: string | null;
+clonedCircle: ICircle | null;
+clonedCircleId: string | null;
+}
+
 interface ICreateCircleResponse {
 __typename: "CreateCircleResponse";
 status: string | null;
 message: string | null;
 createdCircle: ICircle | null;
 creator: IProfile | null;
+}
+
+interface IDeleteCircleResponse {
+__typename: "DeleteCircleResponse";
+status: string | null;
+message: string | null;
+circleIdToDelete: string | null;
+circleDeleted: boolean | null;
+numberOfPiiCircleClones: number | null;
+piiCircleClonesDeleted: boolean | null;
+}
+
+interface IFileUploadResponse {
+__typename: "FileUploadResponse";
+url: string | null;
+sizes: Array<string | null> | null;
 }
 
 interface IUpdateCircleResponse {

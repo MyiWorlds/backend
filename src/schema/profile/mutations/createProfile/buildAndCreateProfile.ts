@@ -55,8 +55,7 @@ export default async function buildAndCreateProfile(
       username,
       canCreate: true,
       isDarkTheme: true,
-      isMyTypeStyles: false,
-      isMyTheme: false,
+      overrideCircleTypes: false,
       addToHistory: true,
       dateCreated: Date.now(),
       dateUpdated: Date.now(),
@@ -98,7 +97,7 @@ export default async function buildAndCreateProfile(
       context,
     );
 
-    const myTypeStyles = await createDocument(
+    const circleTypeOverrides = await createDocument(
       {
         collection: 'circles',
         type: 'LINES',
@@ -214,7 +213,7 @@ export default async function buildAndCreateProfile(
       profileMedia: '',
       level: level.createdDocumentId,
       rating: rating.createdDocumentId,
-      myTypeStyles: myTypeStyles.createdDocumentId,
+      circleTypeOverrides: circleTypeOverrides.createdDocumentId,
       myTheme: myTheme.createdDocumentId,
       homePublic: homePublic.createdDocumentId,
       home: home.createdDocumentId,

@@ -2,7 +2,13 @@ import firestore from '../../../../services/firebase/firestore/index';
 import stackdriver from '../../../../services/stackdriver';
 import { Context } from '../../../../customTypeScriptTypes/context';
 import { getDocumentsByFilters } from '../../../../services/firebase/firestore/queries';
+import { IDeleteProfileResponse } from './deleteProfileTypes.d';
+import { Profile } from '../../../../customTypeScriptTypes/profile.d';
 import { updateDocumentById } from '../../../../services/firebase/firestore/mutations';
+import {
+  IFilter,
+  IGetDocumentsByFiltersResponse,
+} from '../../../../customTypeScriptTypes/queries';
 
 async function batchDelete(
   collection: string,
@@ -188,12 +194,12 @@ export default async function deleteProfile(id: string, context: Context) {
           deletePiiCircleClonesAppCreated.deleted;
       }
 
-      const deleteProfile = await firestore
+      const profileDeleted = await firestore
         .collection('profiles')
         .doc(id)
         .delete();
 
-      if (deleteProfile) {
+      if (profileDeleted) {
         response.profileDeleted = true;
 
         const updatedUser = {

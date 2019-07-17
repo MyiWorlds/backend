@@ -68,7 +68,7 @@ export default async function deleteDocument(
       };
     }
   } catch (error) {
-    stackdriver.log(error);
+    stackdriver.report(error);
     response = {
       status: 'ERROR',
       message: 'I had an error, please refresh and try again try again.',

@@ -1,3 +1,4 @@
+import { Circle } from '../../../../customTypeScriptTypes/circle';
 import { Context } from '../../../../customTypeScriptTypes/context';
 import { createDocument } from '../../../../services/firebase/firestore/mutations';
 

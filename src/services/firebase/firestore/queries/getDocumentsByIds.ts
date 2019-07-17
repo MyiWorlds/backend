@@ -16,12 +16,13 @@ export default async function getDocumentsByIds(
 
   try {
     if (ids) {
-      const docIds = ids.map((id: string) => {
+      // tslint:disable-next-line:array-type
+      const docIds: any = ids.map((id: string) => {
         return firestore.doc(`${collection}/${id}`);
       });
 
       const getEntities = await firestore
-        .getAll(docIds)
+        .getAll(...docIds)
         .then((circles2: any[]) => {
           return circles2.map((cir: any) => cir.data());
         });

@@ -2,6 +2,7 @@ import searchCircles from './functions/searchCircles';
 import stackdriver from '../../../../services/stackdriver';
 import { Context } from '../../../../customTypeScriptTypes/context';
 import { ResolverMap } from '../../../../customTypeScriptTypes/graphql-utils';
+import { SearchCircle } from '../../../../customTypeScriptTypes/circle';
 
 export const resolvers: ResolverMap = {
   Query: {

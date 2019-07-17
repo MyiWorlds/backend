@@ -5,6 +5,12 @@ import { genSchema } from './utils/genSchema';
 import 'dotenv/config';
 
 export const startServer = async () => {
+  if (!process.env.NODE_ENV) {
+    throw new Error(
+      '❗️🛑❗️🛑❗️🛑❗️🛑❗️🛑❗️🛑 NO ENVIRONMENT SET IN YOUR package.json STARTUP SCRIPT THAT YOU RAN ❗️🛑❗️🛑❗️🛑❗️🛑❗️🛑❗️🛑',
+    );
+  }
+
   const playground: any = {
     settings: {
       'editor.theme': 'light',
@@ -18,14 +24,21 @@ export const startServer = async () => {
     introspection: true,
     context: ({ req }: { req: any }) => Context(req),
     formatError: (error: any) => {
-      return stackdriver.report(new Error(error));
+      // Can't get it to work with Apollo types
+      stackdriver.report(new Error(`${error}`));
+
+      if (error.message.startsWith('Database Error: ')) {
+        return 'Internal server error';
+      }
+
+      return error.message;
     },
   });
 
   const app = await server
     .listen({ port: process.env.PORT || 8000 })
     .then(({ url }: { url: string }) => {
-      console.log(`🚀  Server ready at ${url}`);
+      console.log(`🚀  Server ready at ${url} 🚀`);
     });
 
   return app;

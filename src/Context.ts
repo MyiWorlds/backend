@@ -1,7 +1,7 @@
-import * as DataLoader from 'dataloader';
 import firestore from './services/firebase/firestore/index';
 import getUserId from './services/firebase/authentication/getUserId';
 import { getDocumentsByIds } from './services/firebase/firestore/queries';
+const DataLoader = require('dataloader');
 
 const Context = async (req: any) => {
   const profileHistoryId =

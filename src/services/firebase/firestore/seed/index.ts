@@ -1,8 +1,9 @@
 import buildAndCreateProfile from '../../../../schema/profile/mutations/createProfile/buildAndCreateProfile';
 import createUser from '../../../../schema/user/mutations/createUser/createUser';
-import firestore from '..';
+import firestore from './../index';
+import profile from './../../../../schema/profile/seed/profile';
 import stackdriver from '../../../stackdriver';
-import user from './user';
+import user from '../../../../schema/user/seed/user';
 import { updateDocumentById } from '../mutations';
 
 async function theCreationStory() {
@@ -25,8 +26,8 @@ async function theCreationStory() {
     if (userExists) {
       await updateDocumentById(user, context, true, false);
     } else {
-      await createUser(user.id, 'creator@myiworlds.com', context);
-      await buildAndCreateProfile('APP', context, true);
+      await createUser(user.id, user.email, context);
+      await buildAndCreateProfile(profile.username, context, true);
     }
   } catch (error) {
     stackdriver.report(error);

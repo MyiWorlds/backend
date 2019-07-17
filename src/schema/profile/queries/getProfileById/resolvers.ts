@@ -14,6 +14,7 @@ export const resolvers: ResolverMap = {
           return profile;
         } catch (error) {
           stackdriver.report(error);
+          return null;
         }
       } else {
         return null;

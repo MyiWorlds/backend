@@ -1,4 +1,34 @@
-interface Circle {
+export type Property =
+  | 'parent'
+  | 'clonedFrom'
+  | 'type'
+  | 'public'
+  | 'rating'
+  | 'tags'
+  | 'slug'
+  | 'title'
+  | 'subtitle'
+  | 'description'
+  | 'media'
+  | 'icon'
+  | 'creator'
+  | 'owner'
+  | 'viewers'
+  | 'editors'
+  | 'dateCreated'
+  | 'dateUpdated'
+  | 'key'
+  | 'string'
+  | 'data'
+  | 'number'
+  | 'bigNumber'
+  | 'boolean'
+  | 'date'
+  | 'geoPoint'
+  | 'line'
+  | 'lines';
+
+export interface Circle {
   id?: string | null;
   cached?: boolean;
   cache?: any;
@@ -10,6 +40,7 @@ interface Circle {
   public?: boolean | null;
   passwordRequired?: boolean | null;
   type?: string | null;
+  properties?: Property[] | null;
   settings?: string | null;
   rating?: string | null;
   tags?: string[] | null;
@@ -41,7 +72,7 @@ interface Circle {
   lines?: string[] | null;
 }
 
-interface SearchCircle {
+export interface SearchCircle {
   id: string;
   title?: string | null;
   type: string;

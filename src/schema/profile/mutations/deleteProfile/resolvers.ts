@@ -1,5 +1,6 @@
 import deleteProfile from './deleteProfile';
 import { Context } from '../../../../customTypeScriptTypes/context';
+import { IDeleteProfileResponse } from './deleteProfileTypes.d';
 import { ResolverMap } from '../../../../customTypeScriptTypes/graphql-utils';
 
 export const resolvers: ResolverMap = {
